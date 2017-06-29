@@ -1,0 +1,44 @@
+<!--The whole content below can be removed with the new code.-->
+
+
+<section class="mat-typography mat-body" fxLayout="row" fxLayoutAlign="center center">
+	
+	<form [formGroup]="authForm" (ngSubmit)="submitForm()">
+	
+	<md-card fxFlex="50">
+		
+		<md-card-title>Login to Group Office</md-card-title>
+		<md-card-content>
+		<list-errors [errors]="errors"></list-errors>
+		
+
+		
+		<md-input-container>						
+			<md-icon mdPrefix>lock</md-icon>
+			<input mdInput formControlName="username" type="text" placeholder="Username" required/>
+			<md-error>This field is required</md-error>
+		</md-input-container>
+		
+		<md-input-container>						
+			<md-icon mdPrefix>lock</md-icon>
+			<input mdInput formControlName="password" type="password" placeholder="Password" />
+		</md-input-container>
+		
+		</md-card-content>
+		
+		<md-card-actions>
+			<button md-button type="submit">
+				Login
+			</button>
+		</md-card-actions>
+
+	</md-card>
+	
+	</form>
+	
+	
+	
+</section>
+
+
+

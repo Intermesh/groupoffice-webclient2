@@ -1,0 +1,45 @@
+
+@import '~@angular/material/theming';
+@import '~@covalent/core/theming/all-theme';
+
+/*$scale: .8;
+$mat-list-two-line-height: 72px * $scale;*/
+@include mat-core();
+
+
+
+
+// Define a custom typography config that overrides the font-family as well as the
+// `headlines` and `body-1` levels.
+/*$custom-typography: mat-typography-config(
+  $font-family:   'Roboto, "Helvetica Neue", sans-serif',
+  $display-4:     mat-typography-level(112px * $scale, 112px * $scale, 300),
+  $display-3:     mat-typography-level(56px * $scale, 56px * $scale, 400),
+  $display-2:     mat-typography-level(45px * $scale, 48px * $scale, 400),
+  $display-1:     mat-typography-level(34px * $scale, 40px * $scale, 400),
+  $headline:      mat-typography-level(24px * $scale, 32px * $scale, 400),
+  $title:         mat-typography-level(20px * $scale, 32px * $scale, 500),
+  $subheading-2:  mat-typography-level(16px * $scale, 28px * $scale, 400),
+  $subheading-1:  mat-typography-level(15px * $scale, 24px * $scale, 400),
+  $body-2:        mat-typography-level(14px * $scale, 24px * $scale, 500),
+  $body-1:        mat-typography-level(14px * $scale, 20px * $scale, 400),
+  $caption:       mat-typography-level(12px * $scale, 20px * $scale, 400),
+  $button:        mat-typography-level(14px * $scale, 14px * $scale, 500),
+  // Line-height must be unit-less fraction of the font-size.
+  $input:         mat-typography-level(inherit, 1.125 * $scale, 400)
+);
+
+@include angular-material-typography($custom-typography);*/
+
+
+
+
+$primary: mat-palette($mat-orange, 800);
+$accent:  mat-palette($mat-light-blue, 600, A100, A400);
+
+$warn:    mat-palette($mat-red, 600);
+
+$theme: mat-light-theme($primary, $accent, $warn);
+
+@include angular-material-theme($theme);
+@include covalent-theme($theme);

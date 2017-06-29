@@ -1,0 +1,25 @@
+<md-toolbar color="primary" class="mat-elevation-z1">
+	
+	<button md-button class="mat-icon-button">
+		<md-icon >menu</md-icon>    
+	</button>
+	
+	<span fxFlex></span>
+  
+	<button md-button class="mat-icon-button" *showAuthed="true" [mdMenuTriggerFor]="userMenu">
+		<md-icon>verified_user</md-icon>
+	</button>
+  
+</md-toolbar>
+
+
+<md-menu #userMenu="mdMenu">
+  <button md-menu-item> 
+		<md-icon>account_box</md-icon>
+		<span>{{ currentUser.username }} </span>
+	</button>
+  <button md-menu-item (click)="logout()"> 
+		<md-icon>exit_to_app</md-icon>
+		<span>Logout</span>
+	</button>
+</md-menu>
