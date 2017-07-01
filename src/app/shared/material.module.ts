@@ -8,7 +8,10 @@ MdListModule,
 MdIconModule, 
 MdButtonModule, 
 MdMenuModule,
-MdTabsModule
+MdTabsModule,
+MdDialog,
+MdDialogModule,
+MdAutocompleteModule
 } from '@angular/material';
 
 let materialModules: any[] = 	[
@@ -19,11 +22,16 @@ let materialModules: any[] = 	[
 		MdIconModule,
 		MdTabsModule,
 		MdButtonModule,
-		MdMenuModule
+		MdMenuModule,
+		MdDialogModule,
+		MdAutocompleteModule
 		];
 
 @NgModule({
   imports: materialModules,
   exports: materialModules,
+	providers: [
+		MdDialog
+	]
 })
 export class MaterialModule { }

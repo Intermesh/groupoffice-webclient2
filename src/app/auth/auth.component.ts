@@ -52,7 +52,7 @@ export class AuthComponent implements OnInit {
    
 		 loginObservable.subscribe(data => {			
 				console.log(data);
-				this.router.navigateByUrl('/contacts');
+				this.router.navigateByUrl('/projects');
 				
 		},
       err => {

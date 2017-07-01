@@ -4,7 +4,7 @@
 		<md-icon >menu</md-icon>    
 	</button>
 	
-	<span fxFlex></span>
+	<span fxFlex>{{ getTitle() }}</span>
   
 	<button md-button class="mat-icon-button" *showAuthed="true" [mdMenuTriggerFor]="userMenu">
 		<md-icon>verified_user</md-icon>

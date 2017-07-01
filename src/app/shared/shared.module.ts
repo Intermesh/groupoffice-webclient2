@@ -5,8 +5,9 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { ShowAuthedDirective } from './show-authed.directive';
 import {ListErrorsComponent} from './list-errors.component';
-
+import { FlexLayoutModule } from '@angular/flex-layout';
 import {MaterialModule} from './material.module';
+import {CovalentSearchModule} from '@covalent/core';
 
 @NgModule({
   imports: [
@@ -15,7 +16,9 @@ import {MaterialModule} from './material.module';
     ReactiveFormsModule,
     HttpModule,
     RouterModule,
-		MaterialModule
+		MaterialModule,
+		FlexLayoutModule,
+		CovalentSearchModule
   ],
   declarations: [
 		ShowAuthedDirective,
@@ -29,7 +32,9 @@ import {MaterialModule} from './material.module';
     RouterModule,
 		ShowAuthedDirective,
 		ListErrorsComponent,
-		MaterialModule
+		MaterialModule,
+		FlexLayoutModule,
+		CovalentSearchModule
   ]
 })
 export class SharedModule {}

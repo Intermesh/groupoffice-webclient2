@@ -2,9 +2,61 @@
 html, body {
 	padding:0;
 	margin:0;
+	height: 100%;
+	width:100%;
 }
 
+app-root {
+	overflow: hidden;
+	height:100%;
+	width:100%;
+}
 
-#layout-main {
+#layout-content {
+	padding: 12px;
+	position:relative;
+	max-width: 1200px;
+	width: 100%;
+	margin: 0 auto;
+	
+}
+
+.go-scrollable-vertical{
+	overflow-x: hidden;
+	overflow-y: scroll;
+}
+/*
+.go-padding {
 	padding: 20px;
+}*/
+
+/*.go-position-bottom-left {
+	position: absolute !important; 
+	bottom: 0;
+	left: 0;
+}*/
+
+.go-fab-position-bottom-right {
+	position: absolute !important;
+	bottom: 20px;
+	right: 20px;
+}
+
+/*.go-position-top-left {
+	position: absolute !important;
+	top: 0;
+	left: 0;
+}
+
+.go-position-top-right {
+	position: absolute !important;
+	bottom: 0;
+	right: 0;
+}*/
+
+
+fieldset {
+	border: 0;
+	padding:0;
+	margin:0;
 }

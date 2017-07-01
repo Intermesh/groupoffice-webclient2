@@ -1,0 +1,32 @@
+<div fxLayout="column" style="height:100%">
+<div fxLayout="row" fxLayoutAlign="end start" style="margin: 12px 0;">
+	
+	<button md-raised-button color="primary" class="" (click)="add()">
+		NEW PROJECT
+	</button>
+	
+</div>
+
+
+<div 
+	class="go-scrollable-vertical" 
+	fxFlex  
+	infiniteScroll
+	[infiniteScrollDistance]="2"
+	[infiniteScrollThrottle]="300"
+	(scrolled)="onScroll()"
+	[scrollWindow]="false"
+	>
+
+<md-card>
+	<md-card-title>
+		Project list
+	</md-card-title>
+	<md-card-content>		
+		<projects-table></projects-table>
+	</md-card-content>
+</md-card>
+
+</div>
+	
+</div>

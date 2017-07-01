@@ -1,11 +1,11 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule ,	Title} from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule }   from '@angular/forms'; 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { RouterModule }   from '@angular/router';
 
 
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -26,7 +26,7 @@ import {SharedModule} from './shared/shared.module';
 
 /** modules **/
 
-import {ContactsModule} from './modules/contacts/contacts.module';
+import {ProjectsModule} from './modules/projects/projects.module';
 
 
 @NgModule({
@@ -45,14 +45,10 @@ import {ContactsModule} from './modules/contacts/contacts.module';
 		AuthModule,
 		
 		SharedModule,
-		
-		
-		//material
-		FlexLayoutModule,		
-		
+
 		
 		//Modules
-		ContactsModule
+		ProjectsModule
 
 	
 		
@@ -62,7 +58,8 @@ import {ContactsModule} from './modules/contacts/contacts.module';
 		ApiService,
 		AuthGuard,
 		AccessTokenService,
-		UserService
+		UserService,
+		Title
 	],
   bootstrap: [AppComponent]
 })

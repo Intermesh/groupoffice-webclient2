@@ -1,0 +1,37 @@
+<form [formGroup]="form" (ngSubmit)="submitForm()">
+	<h2 md-dialog-title>
+		New project
+	</h2>
+
+	<md-dialog-content class="mat-typography">
+
+		<fieldset [disabled]="isSubmitting" fxLayout="row">
+
+
+				<md-input-container fxFlex>				
+					<md-icon mdPrefix>description</md-icon>
+					<input mdInput type="text"
+								 placeholder="Description"
+								 formControlName="description"
+								 />
+				</md-input-container>
+
+
+			<go-contact-autocomplete formControlName="organization"></go-contact-autocomplete>
+
+
+	</fieldset>
+
+</md-dialog-content>
+
+<md-dialog-actions>
+
+	<button md-button md-dialog-close color="primary">
+		CANCEL
+	</button>
+	<button md-button type="submit" color="primary">
+		SAVE
+	</button>
+</md-dialog-actions>
+
+</form>
