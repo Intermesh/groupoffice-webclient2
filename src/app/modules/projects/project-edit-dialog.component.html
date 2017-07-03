@@ -1,23 +1,29 @@
-<form [formGroup]="form" (ngSubmit)="submitForm()">
+<form [formGroup]="form" (ngSubmit)="submitForm()" novalidate>
 	<h2 md-dialog-title>
 		New project
 	</h2>
 
 	<md-dialog-content class="mat-typography">
 
-		<fieldset [disabled]="isSubmitting" fxLayout="row">
+		<fieldset [disabled]="isSubmitting">
 
 
+			<div class="go-input-row">
+				<md-icon>description</md-icon>
 				<md-input-container fxFlex>				
-					<md-icon mdPrefix>description</md-icon>
+					
 					<input mdInput type="text"
 								 placeholder="Description"
 								 formControlName="description"
 								 />
+					<md-error>{{ formErrors.description }}</md-error>
 				</md-input-container>
-
-
-			<go-contact-autocomplete formControlName="organization"></go-contact-autocomplete>
+			</div>
+			
+			<div class="go-input-row">
+				<md-icon>domain</md-icon>
+				<go-contact-autocomplete fxFlex formControlName="organization" placeholder="Organization"></go-contact-autocomplete>
+			</div>
 
 
 	</fieldset>

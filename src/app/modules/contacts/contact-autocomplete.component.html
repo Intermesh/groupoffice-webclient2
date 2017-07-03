@@ -1,6 +1,6 @@
 <md-input-container fxFlex>
-	<md-icon mdPrefix>domain</md-icon>
-	<input type="text" mdInput [formControl]="inputControl" [mdAutocomplete]="auto" placeholder="Organization" >
+	
+	<input type="text" mdInput [formControl]="inputControl" [mdAutocomplete]="auto" placeholder="{{placeholder}}" >
 </md-input-container>
 
 <md-autocomplete #auto="mdAutocomplete" [displayWith]="displayFn">

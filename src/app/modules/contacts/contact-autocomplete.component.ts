@@ -8,6 +8,7 @@ import {Contact} from '../contacts/models/contact.model';
 @Component({
 	selector: 'go-contact-autocomplete',
 	templateUrl: './contact-autocomplete.component.html',
+	styles: ['flex: 1'],
 	providers: [
 		{
 			provide: NG_VALUE_ACCESSOR,
@@ -17,7 +18,7 @@ import {Contact} from '../contacts/models/contact.model';
 	]
 })
 export class ContactAutocompleteComponent implements ControlValueAccessor, OnInit {
-	@Input() label = 'Contact';
+	@Input() placeholder = 'Contact';
 	@Input('value') _value = null;
 	onChange: any = () => {};
 	onTouched: any = () => {};
@@ -32,7 +33,6 @@ export class ContactAutocompleteComponent implements ControlValueAccessor, OnIni
 	}
 
 	set value(val) {
-		console.log(val);
 		this._value = val;
 		this.onChange(val);
 		this.onTouched();

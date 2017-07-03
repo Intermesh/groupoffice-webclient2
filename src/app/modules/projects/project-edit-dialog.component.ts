@@ -1,54 +1,58 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, Validators} from '@angular/forms';
 import {ProjectService} from './services/project.service';
 import {MdDialogRef} from '@angular/material';
-import {ApiService} from '../../shared/services/api.service';
-import {URLSearchParams} from '@angular/http';
-import {Observable} from 'rxjs/Rx';
-import {Contact} from '../contacts/models/contact.model';
+
+import {AbstractForm} from '../../shared/form/abstract-form.component';
 
 @Component({
 	selector: 'project-edit-dialog',
 	templateUrl: './project-edit-dialog.component.html',
 })
-export class ProjectEditDialog implements OnInit {
+export class ProjectEditDialog extends AbstractForm implements OnInit {
 
 	ngOnInit(): void {
-	
-	}
 
-	form: FormGroup
-	isSubmitting: boolean = false;
-	constructor(
-		private fb: FormBuilder,
+	}
+	constructor(		
+		protected fb: FormBuilder,
 		private projectService: ProjectService,
-		private dialogRef: MdDialogRef<ProjectEditDialog>,
-		private apiService: ApiService
-	) {
-
-		// create form group using the form builder
-		this.form = this.fb.group({
-			description: '',
-			organization: null
-		});
-
+		private dialogRef: MdDialogRef<ProjectEditDialog>
+	) {	
+		super(fb);	
 	}
-
-
-
-	submitForm() {
-		this.isSubmitting = true;
-
-
-		this.projectService.save(this.form.value).subscribe(data => {
-			this.isSubmitting = false;
-			this.dialogRef.close(data);
-		}, data => {
-			this.isSubmitting = false;
-
-			console.log(data);
+	
+	buildForm() {
+		return this.fb.group({
+			description: ['', Validators.compose([
+//				Validators.required
+				])
+			],
+			organization: null,
+//			members: this.fb.array([
+//				this.initMember(),
+//			])
+			
+			
 		});
-
 	}
+	
+//	
+//	initMember() {
+//        // initialize our address
+//        return this.fb.group({
+//            username: ['']
+//        });
+//    }
+
+
+	internalSubmit() {
+		return this.projectService.save(this.form.value);				
+	}
+	
+	onSuccess(data) {
+		this.dialogRef.close(data);
+	}
+	
 
 }
