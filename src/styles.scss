@@ -1,9 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import "./theme.scss";
+
 html, body {
 	padding:0;
 	margin:0;
 	height: 100%;
 	width:100%;
+	background-color: #f1f1f1;
 }
 
 app-root {
@@ -70,5 +74,26 @@ fieldset {
     margin-right: 20px;
 		margin-bottom: 6px;
     
+	}
+}
+
+// Import all the tools needed to customize the theme and extract parts of it
+@import '~@angular/material/theming';
+
+.go-transparent{
+  background-color: transparent !important;
+}
+
+.mat-card  {
+	.mat-toolbar:first-child {
+		margin-top: -24px;
+		margin-left: -24px;
+		margin-right: -24px;
+		width: auto;
+		
+		 background-color: transparent !important;
+		 $foreground: map-get($theme, foreground);
+		 border-bottom: 1px solid mat-color($foreground, divider);
+		 color: mat-color($foreground, text);
 	}
 }

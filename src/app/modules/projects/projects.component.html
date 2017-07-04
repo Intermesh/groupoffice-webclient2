@@ -1,32 +1,47 @@
 <div fxLayout="column" style="height:100%">
-<div fxLayout="row" fxLayoutAlign="end start" style="margin: 12px 0;">
-	
-	<button md-raised-button color="accent" class="" (click)="add()">
-		NEW PROJECT
-	</button>
-	
-</div>
 
 
-<div 
-	class="go-scrollable-vertical" 
-	fxFlex  
-	infiniteScroll
-	[infiniteScrollDistance]="2"
-	[infiniteScrollThrottle]="300"
-	(scrolled)="onScroll()"
-	[scrollWindow]="false"
-	>
 
-<md-card>
-	<md-card-title>
-		Project list
-	</md-card-title>
-	<md-card-content>		
-		<projects-table></projects-table>
-	</md-card-content>
-</md-card>
+	<div 
+		class="go-scrollable-vertical" 
+		fxFlex  
+		infiniteScroll
+		[infiniteScrollDistance]="2"
+		[infiniteScrollThrottle]="300"
+		(scrolled)="onScroll()"
+		[scrollWindow]="false"
+		>
 
-</div>
-	
+		<md-card>
+
+
+			<md-card-content>	
+
+				<div *ngIf="projectsTable.selectedRows.length == 0" fxLayout="row" fxLayoutAlign="start center" style="height: 40px;">					
+					<span class="body-2" fxFlex>
+						Project list
+					</span>
+					
+					<button md-button color="accent" class="" (click)="add()">
+						NEW PROJECT
+					</button>
+				</div>
+				
+				
+				<div *ngIf="projectsTable.selectedRows.length > 0" fxLayout="row" fxLayoutAlign="start center">
+					<span class="body-2" fxFlex>
+						{{ projectsTable.selectedRows.length }} selected rows
+					</span>
+					
+					<button md-button class="mat-icon-button" (click)="delete()">
+						<md-icon>delete</md-icon>
+					</button>
+				</div>
+
+				<projects-table></projects-table>
+			</md-card-content>
+		</md-card>
+
+	</div>
+
 </div>

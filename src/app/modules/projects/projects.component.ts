@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProjectsTableComponent } from './projects-table.component';
-
+import {ProjectService} from './services/project.service';
+import {MdSnackBar} from '@angular/material';
 
 
 import { Title } from '@angular/platform-browser';
@@ -14,20 +15,39 @@ export class ProjectsComponent implements OnInit {
 	
 	@ViewChild(ProjectsTableComponent) projectsTable: ProjectsTableComponent
 	
-  constructor(private titleService: Title) {}
+  constructor(private titleService: Title, private projectService: ProjectService, private snackBar: MdSnackBar) {}
 	
 	ngOnInit() {
 		this.titleService.setTitle("Projects")
 	}
 	
 	onScroll() {
-		console.log('scrolled');
 		this.projectsTable.loadProjects();
 	}
 	
 	
 	add() {
 		this.projectsTable.edit();
+	}
+	
+	delete() {
+		this.projectService.delete(this.projectsTable.selectedRows).subscribe(deletedProjects => {
+			
+			this.projectsTable.loadProjects(false);
+			this.projectsTable.selectedRows = [];
+			
+			this.snackBar.open(
+			deletedProjects.length + " deleted",
+			"UNDO",
+			{
+				duration: 30000
+			}
+			).onAction().subscribe(() => {
+				
+				this.projectService.unDelete().subscribe(data => { this.projectsTable.loadProjects(false); })
+			});
+			
+		});
 	}
 
 }

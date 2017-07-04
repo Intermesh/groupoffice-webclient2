@@ -74,12 +74,7 @@ export class ContactAutocompleteComponent implements ControlValueAccessor, OnIni
 	}
 
 	findOrganizations(query: string): Observable<Contact[]> {
-
-		const urlParams: URLSearchParams = new URLSearchParams();
-
-		urlParams.set('searchQuery', query);
-
-		return this.apiService.get('/contacts', urlParams).map(data => data.data as Contact[]);
+		return this.apiService.get('/contacts', {searchQuery: query}).map(data => data.data as Contact[]);
 	}
 
 	displayFn(contact: Contact): string {

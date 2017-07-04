@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Rx';
 import {ApiService} from '../../../shared/services/api.service';
 import {Project} from '../models/project.model';
-import { URLSearchParams } from '@angular/http';
 
 @Injectable()
 export class ProjectService {
@@ -11,21 +10,19 @@ export class ProjectService {
 		private apiService: ApiService
 	) {}
 	
-	find(params): Observable<Project[]> {
-    // Convert any filters over to Angular's URLSearchParams
-    const urlParams: URLSearchParams = new URLSearchParams();
-
-    Object.keys(params)
-    .forEach((key) => {
-      urlParams.set(key, params[key]);
-    }); 
+	find(params: {[key: string]: string} = null): Observable<Project[]> {
 
     return this.apiService
     .get(
       '/projects',
-      urlParams
+      params
     ).map(data => data.data);
   }
+	
+	get(id: number, params: {[key: string]: string} = null) : Observable<Project> {
+		
+		return this.apiService.get('/projects/' + id, params).map(data => data.data);
+	}
 
 
 	// Update the user on the server (email, pass, etc)
@@ -33,13 +30,41 @@ export class ProjectService {
 		
 		let result;
 		if(project.id) { 
-			result = this.apiService.put('/projects', {data: project});
+			result = this.apiService.put('/projects/' + project.id, {data: project});
 		} else
 		{
 			result = this.apiService.post('/projects', {data: project});
 		}
 		
 		return result.map(data => Object.assign(project, data.data));
+	}
+	
+	deletedProjects: any[];
+	
+	delete(projects: Project[]): Observable<any[]> {
+		
+		this.deletedProjects = [];
+		
+		for (let project of projects) {
+			this.deletedProjects.push({
+				id: project.id,
+				deleted: true
+			});
+		}
+		
+		return this.apiService.put('/projects', {data: this.deletedProjects}).map(data => this.deletedProjects);
+	}
+	
+	unDelete(): Observable<any[]> {
+		for (let project of this.deletedProjects) {
+			project.deleted = false;				
+		}
+		
+		let response = this.apiService.put('/projects', {data: this.deletedProjects}).map(data => this.deletedProjects);
+
+		this.deletedProjects = [];
+		
+		return response;
 	}
 
 }

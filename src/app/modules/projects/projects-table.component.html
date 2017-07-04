@@ -6,5 +6,14 @@
   [sortable]="true"
   [sortBy]="number"
   [sortOrder]="'DESC'"
+	[(ngModel)]="selectedRows"
   >
+	
+	<ng-template tdDataTableTemplate="number" let-value="value" let-row="row" let-column="column">
+    <a [routerLink]="['/projects', row.id]">{{ value }} </a>
+  </ng-template>
+	
+	
 </td-data-table>
+
+

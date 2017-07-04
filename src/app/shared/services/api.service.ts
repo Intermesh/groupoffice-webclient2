@@ -36,9 +36,21 @@ export class ApiService {
 			.catch(this.formatErrors)
 			.map((res: Response) => res.json());
 	}
+	
+	private paramsToURLSearchParams(params: {[key: string]: string} = {}): URLSearchParams {
+			const urlParams: URLSearchParams = new URLSearchParams();
 
-	get(path: string, params: URLSearchParams = new URLSearchParams()): Observable<any> {
-		return this.http.get(`${environment.apiUrl}${path}`, {headers: this.setHeaders(), search: params})
+			Object.keys(params)
+			.forEach((key) => {
+				urlParams.set(key, params[key]);
+			}); 
+			
+			return urlParams;
+	}
+
+	get(path: string, params: {[key: string]: string} = {}): Observable<any> {
+		
+		return this.http.get(`${environment.apiUrl}${path}`, {headers: this.setHeaders(), search: this.paramsToURLSearchParams(params)})
 			.catch(this.formatErrors)
 			.map((res: Response) => res.json());
 	}
@@ -50,8 +62,8 @@ export class ApiService {
 	}
 	
 	
-	delete(path: string, params: URLSearchParams = new URLSearchParams()): Observable<any> {
-		return this.http.delete(`${environment.apiUrl}${path}`, {headers: this.setHeaders(), search: params})
+	delete(path: string, params: {[key: string]: string } = {}): Observable<any> {
+		return this.http.delete(`${environment.apiUrl}${path}`, {headers: this.setHeaders(), search: this.paramsToURLSearchParams(params)})
 			.catch(this.formatErrors)
 			.map((res: Response) => res.json());
 	}

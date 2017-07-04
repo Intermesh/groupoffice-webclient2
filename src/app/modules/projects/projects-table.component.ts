@@ -16,6 +16,9 @@ export class ProjectsTableComponent implements OnInit {
 	private loading = false;	
 	private data: Project[] = [];
 	
+	
+	public selectedRows: Project[] = [];
+	
 	ngOnInit() {
 		this.loadProjects()
 	}
@@ -27,9 +30,9 @@ export class ProjectsTableComponent implements OnInit {
 		let limit: number;
 		
 		offset = append ? this.data.length : 0;
-		limit = append ? 5 :  this.data.length;
+		limit = append ? 50 :  this.data.length;
 		
-		this.projectService.find({offset: offset, limit: limit, returnProperties: 'id,description,number,organization[id,name]'})
+		this.projectService.find({offset: String(offset), limit: String(limit), returnProperties: 'id,description,number,organization[id,name]'})
     .subscribe(data => {
       this.loading = false;
 			
@@ -56,7 +59,7 @@ export class ProjectsTableComponent implements OnInit {
 			}
 		});
 	}
-
+	
 	
 	
 	private columns: ITdDataTableColumn[] = [

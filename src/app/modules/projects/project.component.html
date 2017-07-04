@@ -1,0 +1,46 @@
+
+
+<md-card *ngIf="project" class="mat-typography">
+
+
+
+
+
+	<md-toolbar>
+		<button md-button class="mat-icon-button" [routerLink]="['/projects']">
+						<md-icon>chevron_left</md-icon>
+		</button>
+		<div fxFlex>{{ project.number }}: {{project.description}}</div>
+		<button md-button class="mat-icon-button">
+			<md-icon>edit</md-icon>
+		</button>
+	</md-toolbar>
+
+	<md-card-content style='margin-top: 16px'>
+		<nav md-tab-nav-bar>
+			<a md-tab-link 
+				 [routerLink]="['/projects', project.id]"
+				 routerLinkActive #rla="routerLinkActive"
+				 [active]="rla.isActive"
+				 >
+				 INFO
+		</a>
+		<a md-tab-link>
+			TEAM
+		</a>
+	</nav>
+
+
+	<md-list>
+		<md-list-item>
+			<md-icon md-list-icon>domain</md-icon>
+			<h4 md-line>{{project.organization.name}}</h4>
+			<p md-line> Organization </p>
+		</md-list-item>
+	</md-list>
+
+
+</md-card-content>
+
+
+</md-card>
