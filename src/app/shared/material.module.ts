@@ -13,10 +13,18 @@ import {
 	MdDialogModule,
 	MdAutocompleteModule,
 	MdSnackBarModule,
-	MdSnackBar
+	MdSnackBar,
+	MdTableModule,
+	MdPaginatorModule,
+	MdCheckboxModule,
+	MdSortModule
 } from '@angular/material';
 
+import {CdkTableModule} from '@angular/cdk';
+
 let materialModules: any[] = [
+	CdkTableModule,
+	
 	MdToolbarModule,
 	MdCardModule,
 	MdInputModule,
@@ -27,7 +35,11 @@ let materialModules: any[] = [
 	MdMenuModule,
 	MdDialogModule,
 	MdAutocompleteModule,
-	MdSnackBarModule
+	MdSnackBarModule,
+	MdTableModule,
+	MdPaginatorModule,
+	MdCheckboxModule,
+	MdSortModule
 ];
 
 @NgModule({
@@ -35,7 +47,7 @@ let materialModules: any[] = [
 	exports: materialModules,
 	providers: [
 		MdDialog,
-		MdSnackBar
+		MdSnackBar,
 	]
 })
 export class MaterialModule {}

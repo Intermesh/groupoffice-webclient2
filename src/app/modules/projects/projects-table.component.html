@@ -1,4 +1,4 @@
-<td-data-table
+<!--<td-data-table
   [data]="data"
   [columns]="columns"
   [selectable]="true"
@@ -14,6 +14,62 @@
   </ng-template>
 	
 	
-</td-data-table>
+</td-data-table>-->
 
 
+<md-table [dataSource]="dataSource" mdSort>
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+		<ng-container cdkColumnDef="selection">
+<!--      <md-header-cell *cdkHeaderCellDef>
+				<md-checkbox          
+						[checked]="false"
+						[indeterminate]="false"          
+						>        
+				</md-checkbox>				
+			</md-header-cell>
+      <md-cell *cdkCellDef="let row">
+				<md-checkbox          
+						[checked]="false"
+						[indeterminate]="false"          
+						>        
+				</md-checkbox>
+			</md-cell>-->
+    </ng-container>
+		
+    <!-- ID Column -->
+    <ng-container cdkColumnDef="number">
+      <md-header-cell *cdkHeaderCellDef md-sort-header> Number </md-header-cell>
+      <md-cell *cdkCellDef="let row" >
+				<a  [routerLink]="['/projects', row.id]">
+					
+				{{row.number}} 
+			</a>
+				
+			</md-cell>
+    </ng-container>
+
+    <!-- Progress Column -->
+    <ng-container cdkColumnDef="description">
+      <md-header-cell *cdkHeaderCellDef md-sort-header> Description </md-header-cell>
+      <md-cell *cdkCellDef="let row"> {{row.description}} </md-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container cdkColumnDef="organization">
+      <md-header-cell *cdkHeaderCellDef> Organization </md-header-cell>
+      <md-cell *cdkCellDef="let row"> {{row.organization ? row.organization.name : '-'}} </md-cell>
+    </ng-container>   
+
+    <md-header-row *cdkHeaderRowDef="displayedColumns"></md-header-row>
+    <md-row *cdkRowDef="let row; columns: displayedColumns;"></md-row>
+  </md-table>
+
+  <md-paginator #paginator
+                [length]="dataSource.count.value"
+                [pageIndex]="0"
+                [pageSize]="5"
+                [pageSizeOptions]="[5, 10, 25, 100]">
+  </md-paginator>

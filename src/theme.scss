@@ -2,8 +2,8 @@
 @import '~@angular/material/theming';
 @import '~@covalent/core/theming/all-theme';
 
-/*$scale: .8;
-$mat-list-two-line-height: 72px * $scale;*/
+$scale: .8;
+$mat-list-two-line-height: 72px * $scale;
 @include mat-core();
 
 
@@ -11,7 +11,7 @@ $mat-list-two-line-height: 72px * $scale;*/
 
 // Define a custom typography config that overrides the font-family as well as the
 // `headlines` and `body-1` levels.
-/*$custom-typography: mat-typography-config(
+$custom-typography: mat-typography-config(
   $font-family:   'Roboto, "Helvetica Neue", sans-serif',
   $display-4:     mat-typography-level(112px * $scale, 112px * $scale, 300),
   $display-3:     mat-typography-level(56px * $scale, 56px * $scale, 400),
@@ -29,7 +29,7 @@ $mat-list-two-line-height: 72px * $scale;*/
   $input:         mat-typography-level(inherit, 1.125 * $scale, 400)
 );
 
-@include angular-material-typography($custom-typography);*/
+@include angular-material-typography($custom-typography);
 
 
 

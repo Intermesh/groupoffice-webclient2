@@ -1,71 +1,105 @@
-import {ITdDataTableColumn} from '@covalent/core';
-import {Component, OnInit} from '@angular/core';
+
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Project} from './models/project.model';
 import {ProjectService} from './services/project.service';
-import {MdDialog} from '@angular/material';
+import {MdDialog, MdPaginator, MdSort} from '@angular/material';
 
 import {ProjectEditDialog} from './project-edit-dialog.component';
+
+import {DataSource} from '@angular/cdk';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/startWith';
+import 'rxjs/add/observable/merge';
+import 'rxjs/add/operator/map';
 
 @Component({
 	selector: 'projects-table',
 	templateUrl: './projects-table.component.html'
 })
 export class ProjectsTableComponent implements OnInit {
-	constructor(private projectService: ProjectService, private dialog: MdDialog) {}
 	
-	private loading = false;	
-	private data: Project[] = [];
 	
+	dataSource: ProjectDataSource | null;
+	displayedColumns:string[] = ['number','description','organization'];
+	
+	@ViewChild(MdSort) sort: MdSort;
+	@ViewChild(MdPaginator) paginator: MdPaginator;
 	
 	public selectedRows: Project[] = [];
+
+	constructor(private projectService: ProjectService, private dialog: MdDialog) {}
 	
 	ngOnInit() {
-		this.loadProjects()
-	}
-	public loadProjects(append: boolean = true) {
-		this.loading = true;
-    //this.data = [];
-		
-		let offset: number;
-		let limit: number;
-		
-		offset = append ? this.data.length : 0;
-		limit = append ? 50 :  this.data.length;
-		
-		this.projectService.find({offset: String(offset), limit: String(limit), returnProperties: 'id,description,number,organization[id,name]'})
-    .subscribe(data => {
-      this.loading = false;
-			
-			if(append) {
-				this.data = this.data.concat(data);
-			} else
-			{
-				this.data = data;
-			}
-      // Used from http://www.jstips.co/en/create-range-0...n-easily-using-one-line/
-      //this.totalPages = Array.from(new Array(Math.ceil(data.articlesCount / this.limit)), (val, index) => index + 1);
-    });
+		this.dataSource = new ProjectDataSource(this.projectService, this.paginator, this.sort);
+	
 	}
 	
-	public reload() {
-		
-	}
-	
+
 	public edit() {
 		let dialogRef = this.dialog.open(ProjectEditDialog, {width: "600px"});
 		dialogRef.afterClosed().subscribe(result => {
 			if(result) {
-				this.loadProjects(false);
+//				this.loadProjects(false);
+				this.dataSource.load();
 			}
 		});
 	}
-	
-	
-	
-	private columns: ITdDataTableColumn[] = [
-		{name: 'number', label: 'Project #', sortable: true},
-		{name: 'description', label: 'Description'},
-		{name: 'organization.name', label: 'Organization'}
-	];
 
+}
+
+
+
+
+/**
+ * Data source to provide what data should be rendered in the table. Note that the data source
+ * can retrieve its data in any way. In this case, the data source is provided a reference
+ * to a common data base, ExampleDatabase. It is not the data source's responsibility to manage
+ * the underlying data. Instead, it only needs to take the data and send the table exactly what
+ * should be rendered.
+ */
+export class ProjectDataSource extends DataSource<any> {
+  constructor(private projectService: ProjectService, private paginator: MdPaginator, private sort: MdSort) {
+    super();
+		
+		
+  }
+	
+	public count: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+	public data: BehaviorSubject<Project[]> = new BehaviorSubject<Project[]>([]);
+	
+	public load() {		
+		this.projectService.find({
+				offset: String(this.paginator.pageSize * this.paginator.pageIndex), 
+				limit: String(this.paginator.pageSize),
+				returnProperties: 'id,description,number,organization[id,name]',
+				orderDirection: this.sort.direction,
+				orderColumn: this.sort.active
+				
+				
+			}).subscribe(data => {
+			this.count.next(data.count);					
+			this.data.next(data.data);
+		});
+	}
+
+  /** Connect function called by the table to retrieve one stream containing the data to render. */
+  connect(): Observable<Project[]> {
+		
+		 const displayDataChanges = [
+      this.paginator.page,
+      this.sort.mdSortChange,
+    ];
+		
+		
+		Observable.merge(...displayDataChanges).subscribe(() => {
+      this.load();
+    });
+		
+		this.load();
+			
+		return this.data;
+  }
+
+  disconnect() {}
 }

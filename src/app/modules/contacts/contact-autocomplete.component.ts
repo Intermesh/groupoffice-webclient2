@@ -8,7 +8,7 @@ import {Contact} from '../contacts/models/contact.model';
 @Component({
 	selector: 'go-contact-autocomplete',
 	templateUrl: './contact-autocomplete.component.html',
-	styles: ['flex: 1'],
+	styleUrls: ['./contact-autocomplete.component.css'],
 	providers: [
 		{
 			provide: NG_VALUE_ACCESSOR,

@@ -21,33 +21,33 @@ export class ProjectsComponent implements OnInit {
 		this.titleService.setTitle("Projects")
 	}
 	
-	onScroll() {
-		this.projectsTable.loadProjects();
-	}
+//	onScroll() {
+//		this.projectsTable.projectDatabase.load();
+//	}
 	
 	
 	add() {
 		this.projectsTable.edit();
 	}
 	
-	delete() {
-		this.projectService.delete(this.projectsTable.selectedRows).subscribe(deletedProjects => {
-			
-			this.projectsTable.loadProjects(false);
-			this.projectsTable.selectedRows = [];
-			
-			this.snackBar.open(
-			deletedProjects.length + " deleted",
-			"UNDO",
-			{
-				duration: 30000
-			}
-			).onAction().subscribe(() => {
-				
-				this.projectService.unDelete().subscribe(data => { this.projectsTable.loadProjects(false); })
-			});
-			
-		});
-	}
+//	delete() {
+//		this.projectService.delete(this.projectsTable.selectedRows).subscribe(deletedProjects => {
+//			
+////			this.projectsTable.projectDatabase.load(false);
+//			this.projectsTable.selectedRows = [];
+//			
+//			this.snackBar.open(
+//			deletedProjects.length + " deleted",
+//			"UNDO",
+//			{
+//				duration: 30000
+//			}
+//			).onAction().subscribe(() => {
+//				
+//				this.projectService.unDelete().subscribe(data => { this.projectsTable.projectDatabase.load(false); })
+//			});
+//			
+//		});
+//	}
 
 }

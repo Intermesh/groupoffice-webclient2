@@ -10,13 +10,13 @@ export class ProjectService {
 		private apiService: ApiService
 	) {}
 	
-	find(params: {[key: string]: string} = null): Observable<Project[]> {
+	find(params: {[key: string]: string} = null): Observable<{data: Project[], count: number}> {
 
     return this.apiService
     .get(
       '/projects',
       params
-    ).map(data => data.data);
+    );
   }
 	
 	get(id: number, params: {[key: string]: string} = null) : Observable<Project> {
