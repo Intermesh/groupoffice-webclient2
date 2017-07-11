@@ -1,0 +1,13 @@
+<md-toolbar color="accent" *ngIf="selectionModel.selected.value.length > 1">
+	
+	<button md-button class="mat-icon-button" (click)="selectionModel.clear()">
+		<md-icon>chevron_left</md-icon>
+	</button>
+	
+	<span>
+		{{selectionModel.selected.value.length}}
+	</span>
+	
+	<ng-content></ng-content>
+</md-toolbar>
+

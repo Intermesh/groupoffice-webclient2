@@ -2,6 +2,7 @@
 
 @import "./theme.scss";
 
+
 html, body {
 	padding:0;
 	margin:0;
@@ -10,16 +11,28 @@ html, body {
 	background-color: #f1f1f1;
 }
 
-md-sidenav-container {
-  margin: 0;
+.go-layout-fit {
+overflow: hidden;
+	margin: 0;
   width: 100%;
   height: 100%;
 }
 
+.myClass {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+
+/*md-sidenav-container {
+ @extend .go-layout-fit;
+}*/
+
 app-root {
-	overflow: hidden;
-	height:100%;
-	width:100%;
+	display:flex;
+	
+	@extend .go-layout-fit;
 }
 /*
 #layout-content {
@@ -35,16 +48,8 @@ app-root {
 	overflow-x: hidden;
 	overflow-y: scroll;
 }
-/*
-.go-padding {
-	padding: 20px;
-}*/
 
-/*.go-position-bottom-left {
-	position: absolute !important; 
-	bottom: 0;
-	left: 0;
-}*/
+
 
 .go-fab-position-bottom-right {
 	position: absolute !important;
@@ -90,7 +95,11 @@ fieldset {
   background-color: transparent !important;
 }
 
-.mat-card  {
+
+$background: map-get($theme, background);
+$foreground: map-get($theme, foreground);
+
+.mat-card {
 	.mat-toolbar:first-child {
 		margin-top: -24px;
 		margin-left: -24px;
@@ -98,8 +107,56 @@ fieldset {
 		width: auto;
 		
 		 background-color: transparent !important;
-		 $foreground: map-get($theme, foreground);
 		 border-bottom: 1px solid mat-color($foreground, divider);
 		 color: mat-color($foreground, text);
+	}
+}
+
+
+.go-list-panel {
+	background: mat-color($background, card);
+	color: mat-color($foreground, text);
+	width: 400px;
+	position:relative;
+	
+
+	
+	.go-list-container {
+		@extend .go-scrollable-vertical;	
+	}
+}
+
+.go-toolbar-transparent {
+	
+		background-color: transparent !important;
+		 border-bottom: 1px solid mat-color($foreground, divider);
+		 color: mat-color($foreground, text);
+	
+}
+
+.go-list-item-active {
+	background-color: #ddd;
+}
+
+.go-selected {
+	background-color: #ddd;
+}
+
+
+.go-search {
+	border-radius: 4px 4px 0 0; background:rgba(255,255,255,0.16);
+	margin: 4px 20px;
+	height: 100%;
+	max-width: 600px;
+	width: 100%;
+	input {
+		background-color: transparent;
+		width: 100%;
+		height: 100%;
+		border: 0;
+		padding:16px;
+		margin: 0;
+		color: white;
+		font-size: 16px;
 	}
 }

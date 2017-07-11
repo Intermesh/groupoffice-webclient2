@@ -2,10 +2,6 @@ import { BrowserModule ,	Title} from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule }   from '@angular/forms'; 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { RouterModule }   from '@angular/router';
-
-
-
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -36,6 +32,8 @@ import {ProjectsModule} from './modules/projects/projects.module';
 		FooterComponent
   ],
   imports: [
+
+	
 		//angular core
 		FormsModule,
     BrowserModule,

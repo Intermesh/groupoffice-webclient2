@@ -7,7 +7,10 @@ import { ShowAuthedDirective } from './show-authed.directive';
 import {ListErrorsComponent} from './list-errors.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {MaterialModule} from './material.module';
-import {CovalentSearchModule} from '@covalent/core';
+
+import {SelectionModelToolbar} from './selection-model/selection-model-toolbar.component';
+
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   imports: [
@@ -18,11 +21,13 @@ import {CovalentSearchModule} from '@covalent/core';
     RouterModule,
 		MaterialModule,
 		FlexLayoutModule,
-		CovalentSearchModule
+		InfiniteScrollModule,
+		
   ],
   declarations: [
 		ShowAuthedDirective,
-		ListErrorsComponent
+		ListErrorsComponent,
+		SelectionModelToolbar
 	],
   exports: [
     CommonModule,
@@ -34,7 +39,8 @@ import {CovalentSearchModule} from '@covalent/core';
 		ListErrorsComponent,
 		MaterialModule,
 		FlexLayoutModule,
-		CovalentSearchModule
+		InfiniteScrollModule,
+		SelectionModelToolbar
   ]
 })
 export class SharedModule {}

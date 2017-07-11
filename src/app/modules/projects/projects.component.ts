@@ -9,7 +9,8 @@ import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'projects-page',
   templateUrl: './projects.component.html',
-  styleUrls: ['./projects.component.css']
+  styleUrls: ['./projects.component.css'],
+	host: {class: 'myClass'},
 })
 export class ProjectsComponent implements OnInit {
 	

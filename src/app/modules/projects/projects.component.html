@@ -1,50 +1,49 @@
 
-<md-sidenav-container fxLayout="row">
+<md-sidenav-container fxLayout="row" fxFlex>
   <md-sidenav mode="size" opened="true" style="width: 200px;">
     <!-- sidenav content -->
-		
+
 		<md-nav-list>
-			<md-list-item>
+			<md-list-item [routerLink]="[]" [queryParams]="{status: 'new'}" queryParamsHandling="merge" routerLinkActive="go-list-item-active">
 				<md-icon md-list-icon>star</md-icon>
-				<a md-line href="..."> New </a>
+				<p md-line> New </p>
 			</md-list-item>
-		 
-			<md-list-item>
+
+			<md-list-item [routerLink]="[]" [queryParams]="{status: 'inprogress'}" queryParamsHandling="merge" routerLinkActive="go-list-item-active">
 				<md-icon md-list-icon>sync</md-icon>
-				<a md-line href="..."> In progress</a>
+				<p md-line href="..."> In progress</p>
 			</md-list-item>
 		</md-nav-list>
-		
+
   </md-sidenav>
 
   <!-- primary content -->
 
 
+	<div fxLayout="column" style="padding-top: 20px">
+<!--		<md-toolbar class="go-toolbar-transparent">
+				<div fxFlex></div>
+				<button md-button class="mat-icon-button">
+					<md-icon>sort</md-icon>
+				</button>
+			</md-toolbar>-->
+		
+		<div fxFlex fxLayout="column" class='go-list-panel mat-elevation-z1'>
 
-	<div fxFlex class="go-projects-container">
+			
 
-			<div *ngIf="projectsTable.selectedRows.length == 0" fxLayout="row" fxLayoutAlign="start center" style="height: 56px;">					
-				<span class="body-2" fxFlex>
-					
-				</span>
+			<projects-list fxFlex fxLayout="column"></projects-list>
 
-				<button md-button color="accent" class="" (click)="add()">
-					NEW PROJECT
+			<div style="position: absolute;bottom:12px;right:20px;">
+				<button md-fab color="accent" class="" (click)="add()">
+					<md-icon>add</md-icon>
 				</button>
 			</div>
+		</div>
+	</div>
 
-
-			<div *ngIf="projectsTable.selectedRows.length > 0" fxLayout="row" fxLayoutAlign="start center">
-				<span class="body-2" fxFlex>
-					{{ projectsTable.selectedRows.length }} selected rows
-				</span>
-
-				<button md-button class="mat-icon-button" (click)="delete()">
-					<md-icon>delete</md-icon>
-				</button>
-			</div>
-
-			<projects-table></projects-table>
-</div>
+	<div fxFlex style="padding:20px;">
+		<router-outlet></router-outlet>
+	</div>
 
 </md-sidenav-container>

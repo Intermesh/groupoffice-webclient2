@@ -1,8 +1,13 @@
-<layout-header></layout-header>
+<div class="go-layout-fit" fxLayout='column'>
+	<layout-header></layout-header>
 
 
-<router-outlet></router-outlet>
+	<div fxFlex="grow" style="overflow:hidden" fxLayout="row">
+		<router-outlet></router-outlet>
 
+	</div>
 
-<layout-footer></layout-footer>
+<!--<layout-footer></layout-footer>-->
+
+</div>
 

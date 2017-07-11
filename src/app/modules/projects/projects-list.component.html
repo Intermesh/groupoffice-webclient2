@@ -1,0 +1,30 @@
+
+<go-selection-model-toolbar [selectionModel]="selectionModel">
+	<div fxFlex></div>
+	<button md-button (click)="delete()" class="mat-icon-button" style="float: right">
+		<md-icon>delete</md-icon>
+	</button>
+	
+</go-selection-model-toolbar>
+
+<div fxFlex class="go-list-container"
+		 infiniteScroll
+		 [infiniteScrollDistance]="2"
+		 [infiniteScrollThrottle]="500"
+		 (scrolled)="onScroll()"
+		 [scrollWindow]="false"
+		 >
+
+		 <md-nav-list>
+			 
+		<md-list-item *ngFor="let project of data | async" (click)="selectionModel.select(project, $event)" [class.go-selected]='selectionModel.isSelected(project)'>
+	
+
+			<h3 md-line>{{ project.number }}: {{project.description}}</h3>
+			<p md-line>{{project.organization.name ? project.organization.name : "Internal"}}</p>
+
+		</md-list-item>
+	</md-nav-list>
+
+
+</div>

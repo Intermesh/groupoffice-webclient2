@@ -107,8 +107,8 @@ export class ProjectDataSource extends DataSource<any> {
 		 const displayDataChanges = [
       this.paginator.page,
       this.sort.mdSortChange,
-    ];
-		
+    ];	
+	
 		
 		Observable.merge(...displayDataChanges).subscribe(() => {
       this.load();
