@@ -10,12 +10,18 @@ html, body {
 	background-color: #f1f1f1;
 }
 
+md-sidenav-container {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
 app-root {
 	overflow: hidden;
 	height:100%;
 	width:100%;
 }
-
+/*
 #layout-content {
 	padding: 12px;
 	position:relative;
@@ -23,7 +29,7 @@ app-root {
 	width: 100%;
 	margin: 0 auto;
 	
-}
+}*/
 
 .go-scrollable-vertical{
 	overflow-x: hidden;

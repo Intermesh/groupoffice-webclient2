@@ -7,7 +7,7 @@
 
 
 	<md-toolbar>
-		<button md-button class="mat-icon-button" [routerLink]="['/projects']">
+		<button md-button class="mat-icon-button" (click)="back()">
 						<md-icon>chevron_left</md-icon>
 		</button>
 		<div fxFlex>{{ project.number }}: {{project.description}}</div>

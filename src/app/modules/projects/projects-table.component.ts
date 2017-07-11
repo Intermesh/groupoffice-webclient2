@@ -4,6 +4,8 @@ import {Project} from './models/project.model';
 import {ProjectService} from './services/project.service';
 import {MdDialog, MdPaginator, MdSort} from '@angular/material';
 
+import { ActivatedRoute, Router } from '@angular/router';
+
 import {ProjectEditDialog} from './project-edit-dialog.component';
 
 import {DataSource} from '@angular/cdk';
@@ -21,27 +23,41 @@ export class ProjectsTableComponent implements OnInit {
 	
 	
 	dataSource: ProjectDataSource | null;
-	displayedColumns:string[] = ['number','description','organization'];
+	displayedColumns:string[] = ['number', 'description', 'organization'];
 	
 	@ViewChild(MdSort) sort: MdSort;
 	@ViewChild(MdPaginator) paginator: MdPaginator;
 	
 	public selectedRows: Project[] = [];
+	
+	pageIndex: number = 0;
+	pageSize: number = 5;
+	
 
-	constructor(private projectService: ProjectService, private dialog: MdDialog) {}
+	constructor(private projectService: ProjectService, private dialog: MdDialog, private route: ActivatedRoute, private router: Router) {}
 	
 	ngOnInit() {
 		this.dataSource = new ProjectDataSource(this.projectService, this.paginator, this.sort);
-	
+		this.paginator.page.subscribe(() => {			
+			this.router.navigate(['/projects'], {queryParams: {pageIndex: this.paginator.pageIndex, pageSize: this.paginator.pageSize}});
+		});
+		this.route.queryParams.subscribe(data => {
+			if(data.pageIndex) {
+				this.pageIndex = data.pageIndex;
+			}			
+			if(data.pageSize) {
+				this.pageSize = data.pageSize;
+			}
+		});
 	}
 	
 
 	public edit() {
 		let dialogRef = this.dialog.open(ProjectEditDialog, {width: "600px"});
 		dialogRef.afterClosed().subscribe(result => {
-			if(result) {
+			if(result) {				
 //				this.loadProjects(false);
-				this.dataSource.load();
+				this.router.navigate(['/projects', result.id]);
 			}
 		});
 	}
@@ -68,13 +84,15 @@ export class ProjectDataSource extends DataSource<any> {
 	public count: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 	public data: BehaviorSubject<Project[]> = new BehaviorSubject<Project[]>([]);
 	
-	public load() {		
+	public load() {	
+			
 		this.projectService.find({
 				offset: String(this.paginator.pageSize * this.paginator.pageIndex), 
 				limit: String(this.paginator.pageSize),
 				returnProperties: 'id,description,number,organization[id,name]',
 				orderDirection: this.sort.direction,
-				orderColumn: this.sort.active
+				orderColumn: this.sort.active,
+				q: JSON.stringify([['joinRelation', 'organization', true, 'LEFT']])
 				
 				
 			}).subscribe(data => {

@@ -1,11 +1,13 @@
 
-@import '~@angular/material/theming';
-@import '~@covalent/core/theming/all-theme';
 
-$scale: .8;
-$mat-list-two-line-height: 72px * $scale;
+
+@import '~@angular/material/theming';
+/*@import '~@covalent/core/theming/all-theme';*/
+
 @include mat-core();
 
+
+$scale: .9;
 
 
 
@@ -42,4 +44,4 @@ $warn:    mat-palette($mat-red, 600);
 $theme: mat-light-theme($primary, $accent, $warn);
 
 @include angular-material-theme($theme);
-@include covalent-theme($theme);
+/*@include covalent-theme($theme);*/

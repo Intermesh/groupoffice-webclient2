@@ -8,7 +8,6 @@ import {AuthGuard} from '../../shared/services/auth-guard.service';
 
 import {SharedModule} from '../../shared/shared.module';
 
-import {CovalentDataTableModule} from '@covalent/core';
 import {ProjectService} from './services/project.service';
 
 import {ProjectEditDialog} from './project-edit-dialog.component';
@@ -36,7 +35,6 @@ const projectsRouting: ModuleWithProviders = RouterModule.forChild([
 		ContactsModule,
 		projectsRouting,
 		SharedModule,
-		CovalentDataTableModule,
 		InfiniteScrollModule
 	],
 	declarations: [

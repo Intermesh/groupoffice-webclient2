@@ -23,5 +23,9 @@ export class ProjectComponent implements OnInit {
     .switchMap((params: ParamMap) => this.projectService.get(+params.get('id'), {returnProperties: '*,organization'}))
     .subscribe(project => this.project = project);
   }
+	
+	back() {
+		this.location.back();
+	}
 
 }
