@@ -122,6 +122,7 @@ $foreground: map-get($theme, foreground);
 
 	
 	.go-list-container {
+		user-select: none;
 		@extend .go-scrollable-vertical;	
 	}
 }

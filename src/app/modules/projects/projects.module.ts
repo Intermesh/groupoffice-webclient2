@@ -10,6 +10,7 @@ import {AuthGuard} from '../../shared/services/auth-guard.service';
 import {SharedModule} from '../../shared/shared.module';
 
 import {ProjectService} from './services/project.service';
+import {ProjectEditorService} from './services/project-editor.service';
 
 import {ProjectEditDialog} from './project-edit-dialog.component';
 
@@ -46,7 +47,8 @@ const projectsRouting: ModuleWithProviders = RouterModule.forChild([
 		ProjectComponent
 	],
 	providers: [
-		ProjectService
+		ProjectService,
+		ProjectEditorService
 	],
 	entryComponents: [
 		ProjectEditDialog

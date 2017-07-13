@@ -1,22 +1,11 @@
 
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Project} from './models/project.model';
 import {ProjectService} from './services/project.service';
-import {MdDialog, MdPaginator, MdSort} from '@angular/material';
-
-import { ActivatedRoute, Router } from '@angular/router';
-
-import {ProjectEditDialog} from './project-edit-dialog.component';
-
-import {DataSource} from '@angular/cdk';
+import { Router } from '@angular/router';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/operator/startWith';
-import 'rxjs/add/observable/merge';
-import 'rxjs/add/operator/map';
-
 import {SelectionModel} from '../../shared/selection-model/selection-model.service';
-
+import {MdSnackBar} from '@angular/material';
 
 @Component({
 	selector: 'projects-list',
@@ -24,16 +13,11 @@ import {SelectionModel} from '../../shared/selection-model/selection-model.servi
 })
 export class ProjectsListComponent implements OnInit {
 	
-
-	pageIndex: number = 0;
-	pageSize: number = 5;
-	
 	data: BehaviorSubject<Project[]> = new BehaviorSubject<Project[]>([]);  
 	selectionModel = new SelectionModel<Project>(this.data);
-	constructor(private projectService: ProjectService, private dialog: MdDialog, private route: ActivatedRoute, private router: Router) {}
+	constructor(private projectService: ProjectService, private router: Router, private snackBar: MdSnackBar) {}
 	
 	ngOnInit() {
-//		this.dataSource = new ProjectDataSource(this.projectService, this.paginator, this.sort);
 		this.load();
 		
 		this.selectionModel.selected.subscribe(selected  => {
@@ -41,6 +25,8 @@ export class ProjectsListComponent implements OnInit {
 				this.router.navigate(['/projects', selected[0].id]);
 			}
 		});
+		
+		this.projectService.dataChanged.subscribe(() => this.load(true));
 	}
 	
 	onScroll() {
@@ -49,15 +35,31 @@ export class ProjectsListComponent implements OnInit {
 	
 	
 	delete() {
-		console.log('delete click');
+		this.projectService.delete(this.selectionModel.selected.value).subscribe(deletedProjects => {
+			
+			this.load(true);
+			this.selectionModel.clear();
+			
+			this.snackBar.open(
+			deletedProjects.length + " deleted",
+			"UNDO",
+			{
+				duration: 30000
+			}
+			).onAction().subscribe(() => {
+				
+				this.projectService.unDelete().subscribe(data => { this.load(true); })
+			});
+			
+		});
 	}
 	
 	
-	public load() {	
+	public load(reload: boolean = false) {	
 			
 		this.projectService.find({
-				offset: String(this.data.value.length), 
-				limit: "10",
+				offset: reload ? "0" : String(this.data.value.length), 
+				limit: reload ? String(this.data.value.length) : "10",
 				returnProperties: 'id,description,number,organization[id,name]',
 //				orderDirection: this.sort.direction,
 //				orderColumn: this.sort.active,
@@ -65,12 +67,9 @@ export class ProjectsListComponent implements OnInit {
 				
 				
 			}).subscribe(data => {				
-			this.data.next(this.data.value.concat(data.data));
+			this.data.next(reload ? data.data : this.data.value.concat(data.data));
 		});
 	}
-	
-
-
 }
 
 

@@ -1,71 +1,106 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Rx';
+import {BehaviorSubject} from 'rxjs/Rx';
 import {ApiService} from '../../../shared/services/api.service';
 import {Project} from '../models/project.model';
+import {Deletable} from '../../../shared/models/deletable.interface';
+import {Record} from '../../../shared/models/record.model';
 
-@Injectable()
-export class ProjectService {
 
+
+abstract class CrudService<T extends Record & Deletable> {
 	constructor(
-		private apiService: ApiService
+		protected apiService: ApiService
 	) {}
 	
-	find(params: {[key: string]: string} = null): Observable<{data: Project[], count: number}> {
-
+	public dataChanged: BehaviorSubject<T[]> = new BehaviorSubject<T[]>(null);
+	
+	protected abstract getStorePath():string;
+	
+	protected getReadPath(pk: any): string {
+		return this.getStorePath() + '/' + pk;
+	};	
+	
+	protected getCreatePath(resource: T) {
+		return this.getStorePath();
+	};	
+	
+	protected getUpdatePath(resource: T): string {
+		return this.getReadPath(resource.pk().join('/'));
+	}	
+	
+	
+	find(params: {[key: string]: string} = null): Observable<{data: T[], count: number}> {
     return this.apiService
     .get(
-      '/projects',
+			this.getStorePath(),
       params
     );
   }
 	
-	get(id: number, params: {[key: string]: string} = null) : Observable<Project> {
-		
-		return this.apiService.get('/projects/' + id, params).map(data => data.data);
+	read(pk: any, params: {[key: string]: string} = null) : Observable<T> {		
+		return this.apiService.get(this.getReadPath(pk), params).map(data => data.data);
 	}
-
-
-	// Update the user on the server (email, pass, etc)
-	save (project: Project): Observable<Project> {
-		
-		let result;
-		if(project.id) { 
-			result = this.apiService.put('/projects/' + project.id, {data: project});
+	
+	save (resource: T): Observable<T> {		
+		let result;		
+		if (resource.isNew()) {
+			result = this.apiService.post(this.getCreatePath(resource), {data: resource});		
 		} else
 		{
-			result = this.apiService.post('/projects', {data: project});
+			result = this.apiService.put(this.getUpdatePath(resource), {data: resource});
 		}
-		
-		return result.map(data => Object.assign(project, data.data));
+		const obs = result.map(data => Object.assign(resource, data.data));				
+		obs.subscribe(data => this.dataChanged.next([data]));				
+		return obs;
 	}
 	
-	deletedProjects: any[];
+	deletedResources: Deletable[];
 	
-	delete(projects: Project[]): Observable<any[]> {
+	delete(resources: T[]): Observable<T[]> {
 		
-		this.deletedProjects = [];
+		this.deletedResources = [];
 		
-		for (let project of projects) {
-			this.deletedProjects.push({
-				id: project.id,
+		for (let resource of resources) {			
+			const dResource = {
 				deleted: true
-			});
+			};
+			for (const key in resource.pk()) {
+				dResource[key] = resource[key];
+			}
+			this.deletedResources.push(dResource);
 		}
 		
-		return this.apiService.put('/projects', {data: this.deletedProjects}).map(data => this.deletedProjects);
+		return this.apiService.put(this.getStorePath(), {data: this.deletedResources}).map(data => data.data);
 	}
 	
-	unDelete(): Observable<any[]> {
-		for (let project of this.deletedProjects) {
-			project.deleted = false;				
+	unDelete(): Observable<T[]> {
+		for (let resource of this.deletedResources) {
+			resource.deleted = false;				
 		}
 		
-		let response = this.apiService.put('/projects', {data: this.deletedProjects}).map(data => this.deletedProjects);
+		let response = this.apiService.put(this.getStorePath(), {data: this.deletedResources}).map(data => data.data);
 
-		this.deletedProjects = [];
+		this.deletedResources = [];
 		
 		return response;
 	}
+}
+
+
+@Injectable()
+export class ProjectService extends CrudService<Project> {
+	constructor(
+		apiService: ApiService
+	) {
+		super(apiService);
+	}	
+	
+	protected getStorePath():string {
+		return '/projects';
+	}
+	
+	
 
 }
 

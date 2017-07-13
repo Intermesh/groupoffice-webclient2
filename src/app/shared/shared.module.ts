@@ -9,6 +9,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import {MaterialModule} from './material.module';
 
 import {SelectionModelToolbar} from './selection-model/selection-model-toolbar.component';
+import {SelectionModelDirective} from './selection-model/selection-model.directive';
 
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
@@ -27,7 +28,8 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
   declarations: [
 		ShowAuthedDirective,
 		ListErrorsComponent,
-		SelectionModelToolbar
+		SelectionModelToolbar,
+		SelectionModelDirective
 	],
   exports: [
     CommonModule,
@@ -40,7 +42,8 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 		MaterialModule,
 		FlexLayoutModule,
 		InfiniteScrollModule,
-		SelectionModelToolbar
+		SelectionModelToolbar,
+		SelectionModelDirective
   ]
 })
 export class SharedModule {}

@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Inject} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 import {ProjectService} from './services/project.service';
-import {MdDialogRef} from '@angular/material';
-
+import {MdDialogRef, MdDialog} from '@angular/material';
+import {MD_DIALOG_DATA} from '@angular/material';
 import {AbstractForm} from '../../shared/form/abstract-form.component';
+import {Project} from './models/project.model';
 
 @Component({
 	selector: 'project-edit-dialog',
@@ -15,6 +16,7 @@ export class ProjectEditDialog extends AbstractForm implements OnInit {
 
 	}
 	constructor(		
+		@Inject(MD_DIALOG_DATA) public project: Project = new Project(),
 		protected fb: FormBuilder,
 		private projectService: ProjectService,
 		private dialogRef: MdDialogRef<ProjectEditDialog>
@@ -47,12 +49,19 @@ export class ProjectEditDialog extends AbstractForm implements OnInit {
 
 
 	internalSubmit() {
-		return this.projectService.save(this.form.value);				
+		
+		if(!this.project) {
+			this.project = new Project();
+		}
+		
+		Object.assign(this.project, this.form.value);
+		return this.projectService.save(this.project);				
 	}
 	
 	onSuccess(data) {
 		this.dialogRef.close(data);
 	}
+	
 	
 
 }
