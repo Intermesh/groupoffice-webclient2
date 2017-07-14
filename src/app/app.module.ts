@@ -14,8 +14,6 @@ import {UserService} from './shared/services/user.service'
 import {AuthGuard} from './shared/services/auth-guard.service'
 import {AccessTokenService} from './shared/services/access-token.service'
 
-import {FooterComponent} from './shared/layout/footer.component';
-import {HeaderComponent} from './shared/layout/header.component';
 
 import {SharedModule} from './shared/shared.module';
 
@@ -27,9 +25,7 @@ import {ProjectsModule} from './modules/projects/projects.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-		HeaderComponent,
-		FooterComponent
+    AppComponent
   ],
   imports: [
 

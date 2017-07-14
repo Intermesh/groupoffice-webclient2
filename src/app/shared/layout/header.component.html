@@ -1,25 +1,27 @@
 <md-toolbar color="primary" class="mat-elevation-z1">
+	
+	<ng-content></ng-content>
 
-	<button md-button class="mat-icon-button">
+<!--	<button md-button class="mat-icon-button">
 		<md-icon >menu</md-icon>    
 	</button>
 
 	<span style="padding-left: 20px;">Projects</span>
 
 	<span fxFlex >
-		<!--		<div fxLayout="row" fxLayoutAlign="start center" class="go-search">
+				<div fxLayout="row" fxLayoutAlign="start center" class="go-search">
 					<button type="submit" md-button class="mat-icon-button">
 						<md-icon mdPrefix>search</md-icon>
 					</button>
 				<input placeholder="Search" />
 				
-				</div>-->
+				</div>
 
 	</span>
 
 	<button type="submit" md-button class="mat-icon-button">
 		<md-icon mdPrefix>search</md-icon>
-	</button>
+	</button>-->
 
 	<button md-button class="mat-icon-button" *showAuthed="true" [mdMenuTriggerFor]="userMenu">
 		<md-icon>verified_user</md-icon>

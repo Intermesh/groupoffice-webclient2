@@ -1,7 +1,17 @@
+<layout-header>
+	<button md-button class="mat-icon-button">
+		<md-icon >menu</md-icon>    
+	</button>
 
-<md-sidenav-container fxLayout="row" fxFlex>
-  <md-sidenav mode="size" opened="true" style="width: 200px;">
-    <!-- sidenav content -->
+	<h1>Projects</h1>
+	
+	<button type="submit" md-button class="mat-icon-button">
+		<md-icon mdPrefix>search</md-icon>
+	</button>
+</layout-header>
+
+<md-sidenav-container>
+  <md-sidenav mode="size" opened="true">
 
 		<md-nav-list>
 			<md-list-item [routerLink]="[]" [queryParams]="{status: 'new'}" queryParamsHandling="merge" routerLinkActive="go-list-item-active">
@@ -17,32 +27,19 @@
 
   </md-sidenav>
 
-  <!-- primary content -->
 
+	<div class='go-list-panel'>	
 
-	<div fxLayout="column" style="padding-top: 20px">
-<!--		<md-toolbar class="go-toolbar-transparent">
-				<div fxFlex></div>
-				<button md-button class="mat-icon-button">
-					<md-icon>sort</md-icon>
-				</button>
-			</md-toolbar>-->
+		<projects-list></projects-list>
+
+		<button md-fab color="accent" class="" (click)="add()">
+			<md-icon>add</md-icon>
+		</button>
 		
-		<div fxFlex fxLayout="column" class='go-list-panel mat-elevation-z1'>
-
-			
-
-			<projects-list fxFlex fxLayout="column"></projects-list>
-
-			<div style="position: absolute;bottom:12px;right:20px;">
-				<button md-fab color="accent" class="" (click)="add()">
-					<md-icon>add</md-icon>
-				</button>
-			</div>
-		</div>
 	</div>
-
-	<div fxFlex style="padding:20px;">
+	
+	
+	<div class="go-display-panel">
 		<router-outlet></router-outlet>
 	</div>
 

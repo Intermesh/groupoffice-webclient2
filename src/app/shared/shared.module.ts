@@ -13,6 +13,10 @@ import {SelectionModelDirective} from './selection-model/selection-model.directi
 
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
+import {FooterComponent} from './layout/footer.component';
+import {HeaderComponent} from './layout/header.component';
+
+
 @NgModule({
   imports: [
     CommonModule,
@@ -22,14 +26,15 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     RouterModule,
 		MaterialModule,
 		FlexLayoutModule,
-		InfiniteScrollModule,
-		
+		InfiniteScrollModule		
   ],
   declarations: [
 		ShowAuthedDirective,
 		ListErrorsComponent,
 		SelectionModelToolbar,
-		SelectionModelDirective
+		SelectionModelDirective,
+		FooterComponent,
+		HeaderComponent
 	],
   exports: [
     CommonModule,
@@ -43,7 +48,9 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 		FlexLayoutModule,
 		InfiniteScrollModule,
 		SelectionModelToolbar,
-		SelectionModelDirective
+		SelectionModelDirective,
+		FooterComponent,
+		HeaderComponent
   ]
 })
 export class SharedModule {}

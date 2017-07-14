@@ -1,5 +1,5 @@
 
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, AfterViewInit} from '@angular/core';
 import {Project} from './models/project.model';
 import {ProjectService} from './services/project.service';
 import { Router } from '@angular/router';
@@ -11,7 +11,13 @@ import {MdSnackBar} from '@angular/material';
 	selector: 'projects-list',
 	templateUrl: './projects-list.component.html'
 })
-export class ProjectsListComponent implements OnInit {
+export class ProjectsListComponent implements OnInit, AfterViewInit {
+	ngAfterViewInit(): void {
+		//do this in after view init because otherwise it fires immediately
+		this.projectService.dataChanged.subscribe(data => {
+			this.load(true);
+		});
+	}
 	
 	data: BehaviorSubject<Project[]> = new BehaviorSubject<Project[]>([]);  
 	selectionModel = new SelectionModel<Project>(this.data);
@@ -24,9 +30,7 @@ export class ProjectsListComponent implements OnInit {
 			if (selected.length == 1) {
 				this.router.navigate(['/projects', selected[0].id]);
 			}
-		});
-		
-		this.projectService.dataChanged.subscribe(() => this.load(true));
+		});		
 	}
 	
 	onScroll() {

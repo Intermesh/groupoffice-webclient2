@@ -1,25 +1,16 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { ProjectsTableComponent } from './projects-table.component';
-import {ProjectService} from './services/project.service';
-
+import { Component } from '@angular/core';
 import {ProjectEditorService} from './services/project-editor.service';
 
 
-import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'projects-page',
   templateUrl: './projects.component.html',
-  styleUrls: ['./projects.component.css'],
-	host: {class: 'myClass'},
+  styleUrls: ['./projects.component.css']
 })
-export class ProjectsComponent implements OnInit {
+export class ProjectsComponent {
 	
-  constructor(private titleService: Title, private projectEditorService: ProjectEditorService) {}
-	
-	ngOnInit() {
-		this.titleService.setTitle("Projects")
-	}	
+  constructor(private projectEditorService: ProjectEditorService) {}
 	
 	add() {
 		this.projectEditorService.open();

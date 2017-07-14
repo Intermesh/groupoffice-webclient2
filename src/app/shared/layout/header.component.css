@@ -1,0 +1,8 @@
+:host /deep/ h1 {
+	padding-left: 8px;
+	flex: 1 1 auto;
+}
+
+:host /deep/ .mat-toolbar {
+	padding: 0 12px;
+}
