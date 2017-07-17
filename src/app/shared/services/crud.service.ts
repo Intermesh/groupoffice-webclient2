@@ -6,7 +6,8 @@ import {Record} from '../models/record.model';
 
 export abstract class CrudService<T extends Record & Deletable> {
 	constructor(
-		protected apiService: ApiService
+		protected apiService: ApiService,
+		private modelClass: { new(...args: any[]): T }
 		
 	) {}
 	
@@ -23,8 +24,15 @@ export abstract class CrudService<T extends Record & Deletable> {
 	};	
 	
 	protected getUpdatePath(resource: T): string {
-		return this.getReadPath(resource.pk().join('/'));
+		
+		return this.getReadPath(resource[resource.pk()[0]]);
 	}	
+	
+	private dataToModel (data): T {
+		let model = new this.modelClass ();
+		model = Object.assign(model, data);
+		return model;
+	}
 	
 	
 	find(params: {[key: string]: string} = null): Observable<{data: T[], count: number}> {
@@ -32,11 +40,23 @@ export abstract class CrudService<T extends Record & Deletable> {
     .get(
 			this.getStorePath(),
       params
-    );
+    )
+			.share()
+			.map(data => {
+			
+				for(let i =0, l=data.data.length;i<l;i++) {
+					data.data[i] = this.dataToModel(data.data[i]);
+				}
+
+				return data;
+			});
   }
 	
 	read(pk: any, params: {[key: string]: string} = null) : Observable<T> {		
-		return this.apiService.get(this.getReadPath(pk), params).map(data => data.data);
+		
+		return this.apiService.get(this.getReadPath(pk), params)
+			.share()
+			.map(data => this.dataToModel(data.data));
 	}
 	
 	save (resource: T): Observable<T> {		
@@ -47,7 +67,7 @@ export abstract class CrudService<T extends Record & Deletable> {
 		{
 			result = this.apiService.put(this.getUpdatePath(resource), {data: resource});
 		}
-		const obs = result.map(data => Object.assign(resource, data.data));				
+		const obs = result.share().map(data => Object.assign(resource, data.data));				
 		obs.subscribe(data => this.dataChanged.next([data]));				
 		return obs;
 	}
@@ -62,13 +82,17 @@ export abstract class CrudService<T extends Record & Deletable> {
 			const dResource = {
 				deleted: true
 			};
-			for (const key in resource.pk()) {
+			for (const key of resource.pk()) {
 				dResource[key] = resource[key];
 			}
 			this.deletedResources.push(dResource);
 		}
 		
-		return this.apiService.put(this.getStorePath(), {data: this.deletedResources}).map(data => data.data);
+		const obs = this.apiService.put(this.getStorePath(), {data: this.deletedResources})
+			.share()
+			.map(data => data.data);
+		obs.subscribe(data => this.dataChanged.next(data.data));
+		return obs;
 	}
 	
 	unDelete(): Observable<T[]> {
@@ -76,10 +100,14 @@ export abstract class CrudService<T extends Record & Deletable> {
 			resource.deleted = false;				
 		}
 		
-		let response = this.apiService.put(this.getStorePath(), {data: this.deletedResources}).map(data => data.data);
+		let obs = this.apiService.put(this.getStorePath(), {data: this.deletedResources})
+			.share()
+			.map(data => data.data);
 
 		this.deletedResources = [];
 		
-		return response;
+		obs.subscribe(data => this.dataChanged.next(data.data));
+		
+		return obs;
 	}
 }

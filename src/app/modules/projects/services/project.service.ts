@@ -8,7 +8,7 @@ export class ProjectService extends CrudService<Project> {
 	constructor(
 		apiService: ApiService
 	) {
-		super(apiService);
+		super(apiService, Project);
 		
 	}	
 	

@@ -3,6 +3,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Location }                 from '@angular/common';
 
 import {ProjectService} from './services/project.service';
+import {ProjectEditorService} from './services/project-editor.service';
 import {Project} from './models/project.model';
 @Component({
   selector: 'app-project',
@@ -14,7 +15,8 @@ export class ProjectComponent implements OnInit {
   constructor(
 	private projectService: ProjectService,
   private route: ActivatedRoute,
-  private location: Location
+  private location: Location,
+	private projectEditorService: ProjectEditorService
 	) { }
 	private project: Project;
 
@@ -23,9 +25,13 @@ export class ProjectComponent implements OnInit {
     .switchMap((params: ParamMap) => this.projectService.read(+params.get('id'), {returnProperties: '*,organization'}))
     .subscribe(project => this.project = project);
   }
+//	
+//	back() {
+//		this.location.back();
+//	}
 	
-	back() {
-		this.location.back();
+	edit(project: Project) {
+		this.projectEditorService.open(project);
 	}
 
 }

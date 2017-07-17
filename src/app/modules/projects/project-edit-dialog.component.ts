@@ -16,12 +16,17 @@ export class ProjectEditDialog extends AbstractForm implements OnInit {
 
 	}
 	constructor(		
-		@Inject(MD_DIALOG_DATA) public project: Project = new Project(),
+		@Inject(MD_DIALOG_DATA) public data: Project = null,
 		protected fb: FormBuilder,
 		private projectService: ProjectService,
 		private dialogRef: MdDialogRef<ProjectEditDialog>
 	) {	
 		super(fb);	
+		
+		
+		if(data) {
+			this.form.patchValue(data);
+		}
 	}
 	
 	buildForm() {
@@ -50,12 +55,12 @@ export class ProjectEditDialog extends AbstractForm implements OnInit {
 
 	internalSubmit() {
 		
-		if(!this.project) {
-			this.project = new Project();
+		if(!this.data) {
+			this.data = new Project();
 		}
 		
-		Object.assign(this.project, this.form.value);
-		return this.projectService.save(this.project);				
+		Object.assign(this.data, this.form.value);
+		return this.projectService.save(this.data);				
 	}
 	
 	onSuccess(data) {

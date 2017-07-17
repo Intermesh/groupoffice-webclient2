@@ -7,7 +7,8 @@ import {UserService} from '../shared/services/user.service';
 
 @Component({
   selector: 'auth-page',
-  templateUrl: './auth.component.html'
+  templateUrl: './auth.component.html',
+	styleUrls: ['./auth.component.css']
 })
 export class AuthComponent implements OnInit {
 //  authType: String = '';
