@@ -1,6 +1,6 @@
 <layout-header>
-	<button md-button class="mat-icon-button">
-		<md-icon >menu</md-icon>    
+	<button md-button class="mat-icon-button" (click)="toggleSidenav()">
+		<md-icon>menu</md-icon>    
 	</button>
 
 	<h1>Projects</h1>
@@ -10,8 +10,17 @@
 	</button>
 </layout-header>
 
+<go-selection-model-toolbar [selectionModel]="list.selectionModel">
+	<div fxFlex></div>
+	<button md-button (click)="delete()" class="mat-icon-button" style="float: right">
+					<md-icon>delete</md-icon>
+	</button>
+
+</go-selection-model-toolbar>
+
 <md-sidenav-container>
-  <md-sidenav mode="size" opened="true">
+	
+  <md-sidenav mode="side" opened="true">
 
 		<md-nav-list>
 			<md-list-item [routerLink]="[]" [queryParams]="{status: 'new'}" queryParamsHandling="merge" routerLinkActive="go-list-item-active">
@@ -26,6 +35,9 @@
 		</md-nav-list>
 
   </md-sidenav>
+	
+	
+	<div style="display:flex; flex-direction:row;height:100%">
 
 
 	<div class='go-list-panel'>	
@@ -42,5 +54,7 @@
 	<div class="go-display-panel">
 		<router-outlet></router-outlet>
 	</div>
+		
+		</div>
 
 </md-sidenav-container>

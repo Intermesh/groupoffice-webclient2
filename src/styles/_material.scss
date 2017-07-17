@@ -63,3 +63,7 @@ $foreground: map-get($theme, foreground);
 	}
 }
 
+.mat-sidenav-container, .mat-sidenav {
+ background: transparent;
+}
+

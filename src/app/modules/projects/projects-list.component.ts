@@ -5,7 +5,7 @@ import {ProjectService} from './services/project.service';
 import { Router } from '@angular/router';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {SelectionModel} from '../../shared/selection-model/selection-model.service';
-import {MdSnackBar} from '@angular/material';
+
 
 @Component({
 	selector: 'projects-list',
@@ -16,7 +16,7 @@ export class ProjectsListComponent implements OnInit {
 	
 	data: BehaviorSubject<Project[]> = new BehaviorSubject<Project[]>([]);  
 	selectionModel = new SelectionModel<Project>(this.data);
-	constructor(private projectService: ProjectService, private router: Router, private snackBar: MdSnackBar) {}
+	constructor(private projectService: ProjectService, private router: Router) {}
 	
 	ngOnInit() {
 		this.load();
@@ -38,25 +38,7 @@ export class ProjectsListComponent implements OnInit {
 	}
 	
 	
-	delete() {
-		this.projectService.delete(this.selectionModel.selected.value).subscribe(deletedProjects => {
-			
-			this.load(true);
-			this.selectionModel.clear();
-			
-			this.snackBar.open(
-			deletedProjects.length + " deleted",
-			"UNDO",
-			{
-				duration: 30000
-			}
-			).onAction().subscribe(() => {
-				
-				this.projectService.unDelete().subscribe(data => { this.load(true); })
-			});
-			
-		});
-	}
+	
 	
 	
 	public load(reload: boolean = false) {	

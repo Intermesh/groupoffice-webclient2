@@ -3,7 +3,7 @@ export abstract class Record {
 	
 	public isNew() {
 		for(const col of this.pk()) {
-			if(this[col] !== null) {
+			if(this[col] != null) {
 				return false;
 			}
 		}
