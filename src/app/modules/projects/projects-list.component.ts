@@ -45,7 +45,7 @@ export class ProjectsListComponent implements OnInit, OnDestroy {
 			mirrorContainer: this.elementRef.nativeElement
 		});
 		//Handle drop
-		this.dragulaService.drop.takeUntil(this.destroyed).subscribe(this.onSort);
+		this.dragulaService.drop.takeUntil(this.destroyed).subscribe(event => this.onSort(event));
 	}
 
 	private onSort(sortEvent) {
