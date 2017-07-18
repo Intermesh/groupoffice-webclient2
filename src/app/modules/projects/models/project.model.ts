@@ -10,4 +10,5 @@ export class Project extends Record implements Deletable{
 	number: string
 	description: string
 	deleted: true
+	sortOrder: number
 }

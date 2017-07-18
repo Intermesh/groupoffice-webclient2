@@ -17,7 +17,8 @@ import {ProjectEditDialog} from './project-edit-dialog.component';
 
 import {ContactsModule} from '../contacts/contacts.module';
 import {ProjectComponent} from './project.component';
-
+import {DragulaModule} from 'ng2-dragula';
+//import {DndModule} from 'ng2-dnd';
 
 const projectsRouting: ModuleWithProviders = RouterModule.forChild([
 	{
@@ -37,7 +38,9 @@ const projectsRouting: ModuleWithProviders = RouterModule.forChild([
 	imports: [
 		ContactsModule,
 		projectsRouting,
-		SharedModule
+		SharedModule,
+		DragulaModule,
+//		DndModule
 	],
 	declarations: [
 		ProjectsComponent,

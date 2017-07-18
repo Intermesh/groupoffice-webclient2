@@ -11,18 +11,33 @@ export abstract class CrudService<T extends Record & Deletable> {
 		
 	) {}
 	
+	/**
+	 * Fires when a new resource was added, modified or deleted
+	 */
 	public dataChanged: Subject<T[]> = new Subject<T[]>();
 	
+	/**
+	 * Get the path to the store of the resources. eg. '/contacts'
+	 */
 	protected abstract getStorePath():string;
 	
+	/**
+	 * Get the path to read a resource	
+	 */
 	protected getReadPath(pk: any): string {
 		return this.getStorePath() + '/' + pk;
 	};	
 	
+	/**
+	 * Get the path to create a resource
+	 */
 	protected getCreatePath(resource: T) {
 		return this.getStorePath();
 	};	
 	
+	/**
+	 * Get the path to update a resource
+	 */
 	protected getUpdatePath(resource: T): string {
 		
 		return this.getReadPath(resource[resource.pk()[0]]);
@@ -34,7 +49,9 @@ export abstract class CrudService<T extends Record & Deletable> {
 		return model;
 	}
 	
-	
+	/**
+	 * Find resources
+	 */
 	find(params: {[key: string]: string} = null): Observable<{data: T[], count: number}> {
     return this.apiService
     .get(
@@ -52,6 +69,9 @@ export abstract class CrudService<T extends Record & Deletable> {
 			});
   }
 	
+	/**
+	 * Read a resource from the server
+	 */
 	read(pk: any, params: {[key: string]: string} = null) : Observable<T> {		
 		
 		return this.apiService.get(this.getReadPath(pk), params)
@@ -59,6 +79,9 @@ export abstract class CrudService<T extends Record & Deletable> {
 			.map(data => this.dataToModel(data.data));
 	}
 	
+	/**
+	 * Save a resource
+	 */
 	save (resource: T): Observable<T> {		
 		let result;		
 		if (resource.isNew()) {
@@ -74,6 +97,9 @@ export abstract class CrudService<T extends Record & Deletable> {
 	
 	deletedResources: Deletable[];
 	
+	/**
+	 * Delete resources on the server
+	 */
 	delete(resources: T[]): Observable<T[]> {
 		
 		this.deletedResources = [];
@@ -95,6 +121,9 @@ export abstract class CrudService<T extends Record & Deletable> {
 		return obs;
 	}
 	
+	/**
+	 * Undelete resources
+	 */
 	unDelete(): Observable<T[]> {
 		for (let resource of this.deletedResources) {
 			resource.deleted = false;				

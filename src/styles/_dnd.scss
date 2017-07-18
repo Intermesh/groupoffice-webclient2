@@ -1,0 +1,24 @@
+/** copied this from  ../node_modules/ng2-dnd/style.css"*/
+/*@import "../../node_modules/dragula/dist/dragula.css";*/
+.gu-mirror {
+  position: fixed !important;
+  margin: 0 !important;
+  z-index: 9999 !important;
+  opacity: 0.8;
+	
+	.mat-ripple-element {
+		display: none;
+	}
+	padding-left: 12px;
+	border: 1px dashed mat-color($foreground, divider);
+}
+.gu-hide {
+  display: none !important;
+}
+.gu-unselectable {
+  user-select: none !important;
+}
+.gu-transit {
+  opacity: 0.6;
+	background-color: mat-color($foreground, divider);
+}
