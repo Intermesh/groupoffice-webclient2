@@ -55,6 +55,6 @@ const projectsRouting: ModuleWithProviders = RouterModule.forChild([
 	],
 	entryComponents: [
 		ProjectEditDialog
-	]
+	],
 })
 export class ProjectsModule {}

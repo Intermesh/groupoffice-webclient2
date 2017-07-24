@@ -11,7 +11,7 @@
 			<div class="go-input-row">
 				<md-icon>description</md-icon>
 				<md-input-container fxFlex>				
-					
+
 					<input mdInput type="text"
 								 placeholder="Description"
 								 formControlName="description"
@@ -19,25 +19,55 @@
 					<md-error>{{ formErrors.description }}</md-error>
 				</md-input-container>
 			</div>
-			
+
 			<div class="go-input-row">
 				<md-icon>domain</md-icon>
-				<go-contact-autocomplete fxFlex formControlName="organization" placeholder="Organization"></go-contact-autocomplete>
+				<go-contact-autocomplete fxFlex formControlName="organization" placeholder="Organization"></go-contact-autocomplete>				
+			</div>
+
+			<div class="go-input-row">
+				<md-icon>schedule</md-icon>
+				<md-input-container>
+					<input mdInput [mdDatepicker]="startDatePicker" placeholder="Starts at" formControlName="startsAt">
+					<button mdSuffix [mdDatepickerToggle]="startDatePicker"></button>
+				</md-input-container>
+				<md-datepicker #startDatePicker></md-datepicker>
+			</div>
+			
+			<div class="go-input-row">
+				<md-icon>schedule</md-icon>
+			<md-input-container>
+				<input mdInput [mdDatepicker]="endDatePicker" placeholder="Deadline" formControlName="deadline">
+				<button mdSuffix [mdDatepickerToggle]="endDatePicker"></button>
+			</md-input-container>
+			<md-datepicker #endDatePicker></md-datepicker>
 			</div>
 
 
-	</fieldset>
 
-</md-dialog-content>
+			<!--<div class="go-input-row">-->
+			<!--				<input type="hidden"
+											 id="x"
+											 formControlName="test"
+											 />
+							
+							<trix-editor placeholder="Test html" input="x"></trix-editor>-->
+			<!--<wysiwyg  formControlName="description" placeholder="Test html"> </wysiwyg>-->
+			<!--</div>-->
 
-<md-dialog-actions>
 
-	<button md-button md-dialog-close color="primary">
-		CANCEL
-	</button>
-	<button md-button type="submit" color="primary">
-		SAVE
-	</button>
-</md-dialog-actions>
+		</fieldset>
+
+	</md-dialog-content>
+
+	<md-dialog-actions>
+
+		<button md-button md-dialog-close color="primary">
+			CANCEL
+		</button>
+		<button md-button type="submit" color="primary">
+			SAVE
+		</button>
+	</md-dialog-actions>
 
 </form>

@@ -1,20 +1,23 @@
-import {Component, OnInit, Inject} from '@angular/core';
+import {Component, OnInit, Inject, ViewChild, AfterViewInit} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 import {ProjectService} from './services/project.service';
 import {MdDialogRef, MdDialog} from '@angular/material';
 import {MD_DIALOG_DATA} from '@angular/material';
 import {AbstractForm} from '../../shared/form/abstract-form.component';
+import {WysiwygComponent} from '../../shared/form/input/wysiwyg/wysiwyg.component';
+
 import {Project} from './models/project.model';
 
 @Component({
 	selector: 'project-edit-dialog',
 	templateUrl: './project-edit-dialog.component.html',
+	
 })
-export class ProjectEditDialog extends AbstractForm implements OnInit {
+export class ProjectEditDialog extends AbstractForm {
+	
+	
+	@ViewChild(WysiwygComponent) wysiwyg: WysiwygComponent
 
-	ngOnInit(): void {
-
-	}
 	constructor(		
 		@Inject(MD_DIALOG_DATA) public data: Project = null,
 		protected fb: FormBuilder,
@@ -36,6 +39,8 @@ export class ProjectEditDialog extends AbstractForm implements OnInit {
 				])
 			],
 			organization: null,
+			deadline: null,
+			startsAt: null
 //			members: this.fb.array([
 //				this.initMember(),
 //			])
@@ -58,6 +63,8 @@ export class ProjectEditDialog extends AbstractForm implements OnInit {
 		if(!this.data) {
 			this.data = new Project();
 		}
+		
+		
 		
 		Object.assign(this.data, this.form.value);
 		return this.projectService.save(this.data);				

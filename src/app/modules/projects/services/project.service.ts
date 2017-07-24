@@ -9,7 +9,6 @@ export class ProjectService extends CrudService<Project> {
 		apiService: ApiService
 	) {
 		super(apiService, Project);
-		
 	}	
 	
 	protected getStorePath():string {

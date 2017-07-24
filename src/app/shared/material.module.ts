@@ -18,7 +18,9 @@ import {
 	MdPaginatorModule,
 	MdCheckboxModule,
 	MdSortModule,
-	MdSidenavModule
+	MdSidenavModule,
+	MdDatepickerModule,
+	MdNativeDateModule
 } from '@angular/material';
 
 import {CdkTableModule} from '@angular/cdk';
@@ -41,7 +43,9 @@ let materialModules: any[] = [
 	MdPaginatorModule,
 	MdCheckboxModule,
 	MdSortModule,
-	MdSidenavModule
+	MdSidenavModule,
+	MdDatepickerModule,
+	MdNativeDateModule
 ];
 
 @NgModule({

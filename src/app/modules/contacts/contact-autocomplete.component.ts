@@ -19,21 +19,21 @@ import {Contact} from '../contacts/models/contact.model';
 })
 export class ContactAutocompleteComponent implements ControlValueAccessor, OnInit {
 	@Input() placeholder = 'Contact';
-	@Input('value') _value = null;
+	
 	onChange: any = () => {};
 	onTouched: any = () => {};
 
 	inputControl = new FormControl();
 
 	organizations: Observable<Contact[]>;
-
+	private innerValue:Contact = null;
 
 	get value() {
-		return this._value;
+		return this.innerValue;
 	}
 
 	set value(val) {
-		this._value = val;
+		this.innerValue = val;
 		this.onChange(val);
 		this.onTouched();
 	}

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
@@ -15,7 +15,9 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 import {FooterComponent} from './layout/footer.component';
 import {HeaderComponent} from './layout/header.component';
+import {HttpClientModule} from '@angular/common/http';
 
+import {WysiwygComponent} from './form/input/wysiwyg/wysiwyg.component';
 
 @NgModule({
   imports: [
@@ -26,7 +28,9 @@ import {HeaderComponent} from './layout/header.component';
     RouterModule,
 		MaterialModule,
 		FlexLayoutModule,
-		InfiniteScrollModule		
+		InfiniteScrollModule,
+		HttpClientModule
+			
   ],
   declarations: [
 		ShowAuthedDirective,
@@ -34,7 +38,8 @@ import {HeaderComponent} from './layout/header.component';
 		SelectionModelToolbar,
 		SelectionModelDirective,
 		FooterComponent,
-		HeaderComponent
+		HeaderComponent,
+		WysiwygComponent
 	],
   exports: [
     CommonModule,
@@ -50,7 +55,11 @@ import {HeaderComponent} from './layout/header.component';
 		SelectionModelToolbar,
 		SelectionModelDirective,
 		FooterComponent,
-		HeaderComponent
-  ]
+		HeaderComponent,
+		WysiwygComponent
+  ],
+	schemas: [
+		CUSTOM_ELEMENTS_SCHEMA
+	]
 })
 export class SharedModule {}
