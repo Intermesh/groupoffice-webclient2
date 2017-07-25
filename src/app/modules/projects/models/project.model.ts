@@ -1,6 +1,13 @@
 import {Deletable} from '../../../shared/models/deletable.interface';
 import {Record} from '../../../shared/models/record.model';
 
+export class ProposalItem {
+	title: string
+	content: string
+	price: number
+	deleted: boolean
+}
+
 export class Project extends Record implements Deletable{
 	public pk() {
 		return ["id"];
@@ -11,4 +18,5 @@ export class Project extends Record implements Deletable{
 	description: string
 	deleted: true
 	sortOrder: number
+	proposalItems: ProposalItem[]
 }

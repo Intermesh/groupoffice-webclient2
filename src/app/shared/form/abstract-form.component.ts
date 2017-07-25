@@ -6,6 +6,18 @@ export abstract class AbstractForm {
 	submit: Subject<any>;
 	form: FormGroup
 	isSubmitting: boolean = false;
+	
+	formErrors: {[key: string ]: any} = {
+		'description': ''
+	};
+
+	validationMessages: {[key: string ]: any} = {
+		'description': {
+			'required': 'A description is required.',			
+			1: "Server says required"
+		}
+	};
+	
 	constructor(
 		protected fb: FormBuilder	
 	) {
@@ -21,19 +33,6 @@ export abstract class AbstractForm {
 	
 	protected abstract buildForm(): FormGroup;
 	
-
-
-	formErrors: {[key: string ]: any} = {
-		'description': ''
-	};
-
-	validationMessages: {[key: string ]: any} = {
-		'description': {
-			'required': 'A description is required.',			
-			1: "Server says required"
-		}
-	};
-
 	onStatusChanged(data?: any) {
 			
 		if (!this.form) {return;}

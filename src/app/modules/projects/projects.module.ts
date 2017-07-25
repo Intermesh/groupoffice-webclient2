@@ -16,7 +16,7 @@ import {ProjectService} from './services/project.service';
 import {ProjectEditorService} from './services/project-editor.service';
 
 import {ProjectEditDialog} from './project-edit-dialog.component';
-
+import {ProjectProposalEditDialog} from './project-proposal-edit-dialog.component';
 
 import {ContactsModule} from '../contacts/contacts.module';
 import {ProjectComponent} from './project.component';
@@ -46,7 +46,10 @@ const projectsRouting: ModuleWithProviders = RouterModule.forChild([
 				},{
 					path: 'proposal',
 					component: ProjectProposalComponent,
-					canActivate: [AuthGuard]
+					canActivate: [AuthGuard],
+					resolve: {
+						project: ProjectResolve
+					}
 				}	
 				
 			]
@@ -71,7 +74,8 @@ const projectsRouting: ModuleWithProviders = RouterModule.forChild([
 		ProjectEditDialog,
 		ProjectComponent,
 		ProjectInfoComponent,
-		ProjectProposalComponent
+		ProjectProposalComponent,
+		ProjectProposalEditDialog
 	],
 	providers: [
 		ProjectService,
@@ -79,7 +83,8 @@ const projectsRouting: ModuleWithProviders = RouterModule.forChild([
 		ProjectResolve
 	],
 	entryComponents: [
-		ProjectEditDialog
+		ProjectEditDialog,
+		ProjectProposalEditDialog
 	],
 })
 export class ProjectsModule {}

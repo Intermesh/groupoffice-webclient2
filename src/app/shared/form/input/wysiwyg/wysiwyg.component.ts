@@ -86,9 +86,10 @@ export class WysiwygComponent implements OnInit, ControlValueAccessor {
 				attachEvent.attachment.setUploadProgress(percentDone);
 //				console.log(`File is ${percentDone}% uploaded.`);
 			} else if (event instanceof HttpResponse) {
+			console.log(attachEvent.attachment);
 				return attachEvent.attachment.setAttributes({
-					url: "http://localhost/api/thumb/" + event.body["data"].blobId + "?w=100&h=100&zc=1",
-          href: "http://localhost/api/download/" + event.body["data"].blobId,
+					url: environment.apiUrl + "/thumb/" + event.body["data"].blobId + "?w=100&h=100&zc=1",
+          href: environment.apiUrl + "/download/" + event.body["data"].blobId,
         });
 			}
 		});

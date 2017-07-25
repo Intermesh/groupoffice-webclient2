@@ -1,0 +1,40 @@
+<form [formGroup]="form" (ngSubmit)="submitForm()" novalidate>
+	<h2 md-dialog-title>
+		Proposal item
+	</h2>
+
+	<md-dialog-content class="mat-typography">
+
+		<fieldset [disabled]="isSubmitting">
+
+
+			<div class="go-input-row">
+				<md-icon>description</md-icon>
+				<md-input-container fxFlex>				
+
+					<input mdInput type="text"
+								 placeholder="Title"
+								 formControlName="title"
+								 />
+					<md-error>{{ formErrors.description }}</md-error>
+				</md-input-container>
+			</div>
+
+			<wysiwyg formControlName="content" placeholder="Test html"> </wysiwyg>
+
+
+		</fieldset>
+
+	</md-dialog-content>
+
+	<md-dialog-actions>
+
+		<button md-button md-dialog-close color="primary">
+			CANCEL
+		</button>
+		<button md-button type="submit" color="primary">
+			SAVE
+		</button>
+	</md-dialog-actions>
+
+</form>

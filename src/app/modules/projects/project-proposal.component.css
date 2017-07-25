@@ -1,0 +1,14 @@
+:host {
+	padding-top: 20px;
+}
+
+.deleted {
+	background-color: red;
+	color: white;
+	opacity: .5;
+}
+
+.go-projects-proposal-item {
+	padding: 4px;
+	transition: all cubic-bezier(.55,0,.1,1) .4s;
+}

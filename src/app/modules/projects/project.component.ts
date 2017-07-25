@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Location }                 from '@angular/common';
 
 import {ProjectService} from './services/project.service';
@@ -15,14 +15,24 @@ export class ProjectComponent implements OnInit {
   constructor(
 	private projectService: ProjectService,
   private route: ActivatedRoute,
-  private location: Location,
+  private router: Router,
 	private projectEditorService: ProjectEditorService
 	) { }
 	private project: Project;
 
   ngOnInit() {
 		
-		this.route.data.subscribe(data => { this.project = data['project']; });
+		
+//		
+//		this.route.paramMap.subscribe(data => {
+//			
+//			console.log(this.project);
+//			this.project = null;
+//		})
+		
+		this.route.data.subscribe(data => { 			
+			this.project = data['project']; 
+		});
 		
 //		this.route.paramMap
 //    .switchMap((params: ParamMap) => this.projectService.read(+params.get('id'), {returnProperties: '*,organization'}))

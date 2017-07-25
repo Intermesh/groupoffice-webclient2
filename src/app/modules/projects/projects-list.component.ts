@@ -30,6 +30,7 @@ export class ProjectsListComponent implements OnInit, OnDestroy {
 		//If a single selectiono is made then navigate to the project
 		this.selectionModel.selected.takeUntil(this.destroyed).subscribe(selected => {
 			if (selected.length == 1) {
+				
 				this.router.navigate(['/projects', selected[0].id, 'info']);
 			}
 		});

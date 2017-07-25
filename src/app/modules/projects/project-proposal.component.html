@@ -1,14 +1,61 @@
 
+<div (click)="onClick($event)">
 
-<div class="go-input-row">
-				<md-icon>description</md-icon>
-				<md-input-container fxFlex>				
+<div *ngFor="let pi of project.proposalItems; let i = index" [class.deleted]="pi.deleted" class="go-projects-proposal-item">
+	
+	<div fxLayout="row">
+		<h2 fxFlex>{{i + 1}}. {{pi.title}}</h2>
+		<div>
+			<button *ngIf="!pi.deleted" md-button class="mat-icon-button" (click)="edit(pi)">
+				<md-icon>edit</md-icon>
+			</button>
+			
+			<button md-button class="mat-icon-button" (click)="toggleDelete(pi)">
+				<md-icon *ngIf="!pi.deleted">delete</md-icon>
+				<md-icon *ngIf="pi.deleted">undo</md-icon>
+			</button>
+		</div>
+	</div>
+	
+	<p [innerHTML]="pi.content"></p>
+	
+	<hr />
+	
+</div>
+</div>
 
-					<input mdInput type="text"
-								 placeholder="Title"
-								 _formControlName="title"
-								 />
-					<!--<md-error>{{ formErrors.title }}</md-error>-->
-				</md-input-container>
+<!--<form [formGroup]="form" novalidate (ngSubmit)="submitForm()">
+
+
+
+	
+
+
+
+	 list of addresses 
+	<div formArrayName="proposalItems">
+		<div *ngFor="let address of form.controls.proposalItems.controls; let i=index">
+
+			<div [formGroupName]="i">
+				<div class="go-input-row">
+					<md-icon>description</md-icon>
+					<md-input-container fxFlex>				
+
+						<input mdInput type="text"
+									 placeholder="Title"
+									 formControlName="title"
+									 />
+						<md-error>{{ formErrors.title }}</md-error>
+					</md-input-container>
+				</div>
+				<wysiwyg  formControlName="content" placeholder="Test html"> </wysiwyg>
+
+
 			</div>
-<wysiwyg  _formControlName="content" placeholder="Test html"> </wysiwyg>
+		</div>
+	</div>
+	
+	
+	<button md-button type="submit">SAVE</button>
+
+</form>-->

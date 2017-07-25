@@ -67,3 +67,9 @@ $foreground: map-get($theme, foreground);
  background: transparent;
 }
 
+
+hr {
+	border: 0;
+	border-bottom: 1px solid mat-color($foreground, divider);
+	margin: 20px 0;
+}

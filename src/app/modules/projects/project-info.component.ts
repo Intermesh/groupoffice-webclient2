@@ -10,9 +10,9 @@ import {Project} from './models/project.model';
 //  styleUrls: ['./project.component.css']
 })
 export class ProjectInfoComponent implements OnInit{
-	ngOnInit(): void {
-		this.route.data.subscribe(data => { this.project = data['project']; });
-	}
+	
+	private project: Project;
+
 
   constructor(
 	private projectService: ProjectService,
@@ -20,8 +20,11 @@ export class ProjectInfoComponent implements OnInit{
   private location: Location,
 	private projectEditorService: ProjectEditorService
 	) { }
-	private project: Project;
-
+	
+	ngOnInit(): void {
+		this.route.data.subscribe(data => { this.project = data['project']; });
+	}
+	
   
 
 

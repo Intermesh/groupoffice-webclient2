@@ -18,7 +18,7 @@ export class ProjectResolve implements Resolve<Project> {
 //		console.log(id);
 		if(!this.project || this.project.id != id) {			
 		
-			const obs = this.projectService.read(id, {returnProperties: '*,organization'});
+			const obs = this.projectService.read(id, {returnProperties: '*,organization,proposalItems'});
 			obs.subscribe(project => {
 				this.project = project;
 			});

@@ -4,21 +4,20 @@ import {ProjectService} from './services/project.service';
 import {MdDialogRef, MdDialog} from '@angular/material';
 import {MD_DIALOG_DATA} from '@angular/material';
 import {AbstractForm} from '../../shared/form/abstract-form.component';
+import {Observable} from 'rxjs/Observable';
 
-import {Project} from './models/project.model';
+import {ProposalItem} from './models/project.model';
 
 @Component({
-	selector: 'project-edit-dialog',
-	templateUrl: './project-edit-dialog.component.html',
-	
+	templateUrl: './project-proposal-edit-dialog.component.html'	
 })
-export class ProjectEditDialog extends AbstractForm {
+export class ProjectProposalEditDialog extends AbstractForm {
 	
 	constructor(		
-		@Inject(MD_DIALOG_DATA) public data: Project = null,
+		@Inject(MD_DIALOG_DATA) public data: ProposalItem = null,
 		protected fb: FormBuilder,
 		private projectService: ProjectService,
-		private dialogRef: MdDialogRef<ProjectEditDialog>
+		private dialogRef: MdDialogRef<ProjectProposalEditDialog>
 	) {	
 		super(fb);	
 		
@@ -30,38 +29,26 @@ export class ProjectEditDialog extends AbstractForm {
 	
 	buildForm() {
 		return this.fb.group({
-			description: ['', Validators.compose([
-//				Validators.required
+			title: ['', Validators.compose([
+				Validators.required
 				])
 			],
-			organization: null,
-			deadline: null,
-			startsAt: null
-//			members: this.fb.array([
-//				this.initMember(),
-//			])
+			content: null,
+			price: null
 			
 			
 		});
 	}
-	
-//	
-//	initMember() {
-//        // initialize our address
-//        return this.fb.group({
-//            username: ['']
-//        });
-//    }
 
 
 	internalSubmit() {
 		
 		if(!this.data) {
-			this.data = new Project();
+			this.data = new ProposalItem();
 		}
 		
 		Object.assign(this.data, this.form.value);
-		return this.projectService.save(this.data);				
+		return Observable.of(this.data);				
 	}
 	
 	onSuccess(data) {
