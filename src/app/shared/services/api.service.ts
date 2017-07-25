@@ -42,21 +42,23 @@ export class ApiService {
 	}
 	
 	private paramsToURLSearchParams(params: {[key: string]: string} = {}): HttpParams {
-			const urlParams: HttpParams = new HttpParams();
+			let urlParams: HttpParams = new HttpParams();
 
 			Object.keys(params)
 			.forEach((key) => {
-				urlParams.set(key, params[key]);
+				urlParams = urlParams.set(key, params[key]);
 			}); 
 			
 			return urlParams;
 	}
 
-	get(path: string, params: {[key: string]: string} = {}): Observable<any> {
+	get(path: string, queryParams: {[key: string]: string} = {}): Observable<any> {
+		
+		const params = this.paramsToURLSearchParams(queryParams);
 		
 		return this.http.get(`${environment.apiUrl}${path}`, {
 				headers: this.setHeaders(), 
-				params: this.paramsToURLSearchParams(params), 
+				params, 
 				withCredentials: true
 			})
 			.catch(this.formatErrors);
@@ -71,10 +73,10 @@ export class ApiService {
 	}
 	
 	
-	delete(path: string, params: {[key: string]: string } = {}): Observable<any> {
+	delete(path: string, queryParams: {[key: string]: string } = {}): Observable<any> {
 		return this.http.delete(`${environment.apiUrl}${path}`, {
 				headers: this.setHeaders(), 
-				params: this.paramsToURLSearchParams(params), 
+				params: this.paramsToURLSearchParams(queryParams), 
 				withCredentials: true
 			})
 			.catch(this.formatErrors);
