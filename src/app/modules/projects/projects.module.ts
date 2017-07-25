@@ -1,7 +1,10 @@
 import {ModuleWithProviders, NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
 
+import {ProjectResolve} from './project.resolve';
 import {ProjectsComponent} from './projects.component';
+import {ProjectInfoComponent} from './project-info.component';
+import {ProjectProposalComponent} from './project-proposal.component';
 import {ProjectsTableComponent} from './projects-table.component';
 import {ProjectsListComponent} from './projects-list.component';
 
@@ -28,8 +31,27 @@ const projectsRouting: ModuleWithProviders = RouterModule.forChild([
 		children: [{
 			path: ':id',
 			component: ProjectComponent,
-			canActivate: [AuthGuard]
-		}			
+			canActivate: [AuthGuard],
+			resolve: {
+				project: ProjectResolve
+			},
+			children: [
+				{
+					path: 'info',
+					component: ProjectInfoComponent,
+					canActivate: [AuthGuard],
+					resolve: {
+						project: ProjectResolve
+					}
+				},{
+					path: 'proposal',
+					component: ProjectProposalComponent,
+					canActivate: [AuthGuard]
+				}	
+				
+			]
+		},
+		
 		]
 	}, 
 ]);
@@ -47,11 +69,14 @@ const projectsRouting: ModuleWithProviders = RouterModule.forChild([
 		ProjectsTableComponent,
 		ProjectsListComponent,
 		ProjectEditDialog,
-		ProjectComponent
+		ProjectComponent,
+		ProjectInfoComponent,
+		ProjectProposalComponent
 	],
 	providers: [
 		ProjectService,
-		ProjectEditorService
+		ProjectEditorService,
+		ProjectResolve
 	],
 	entryComponents: [
 		ProjectEditDialog

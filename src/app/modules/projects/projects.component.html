@@ -4,7 +4,7 @@
 	</button>
 
 	<h1>Projects</h1>
-	
+
 	<button type="submit" md-button class="mat-icon-button">
 		<md-icon mdPrefix>search</md-icon>
 	</button>
@@ -19,7 +19,7 @@
 </go-selection-model-toolbar>
 
 <md-sidenav-container>
-	
+
   <md-sidenav mode="side" opened="true">
 
 		<md-nav-list>
@@ -35,26 +35,25 @@
 		</md-nav-list>
 
   </md-sidenav>
-	
-	
+
+
 	<div style="display:flex; flex-direction:row;height:100%">
 
+		<div class='go-list-panel'>	
 
-	<div class='go-list-panel'>	
+			<projects-list></projects-list>
 
-		<projects-list></projects-list>
+			<button md-fab color="accent" class="" (click)="add()">
+				<md-icon>add</md-icon>
+			</button>
 
-		<button md-fab color="accent" class="" (click)="add()">
-			<md-icon>add</md-icon>
-		</button>
-		
-	</div>
-	
-	
-	<div class="go-display-panel">
-		<router-outlet></router-outlet>
-	</div>
-		
 		</div>
+
+
+		<div class="go-display-panel">
+			<router-outlet></router-outlet>
+		</div>
+
+	</div>
 
 </md-sidenav-container>

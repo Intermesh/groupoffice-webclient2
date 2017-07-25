@@ -1,47 +1,51 @@
 <div *ngIf="project">
 
 
-<md-card>
+	<md-card>
 
 
 
-<md-toolbar class="go-toolbar-transparent">
-<!--		<button md-button class="mat-icon-button" (click)="back()">
-						<md-icon>chevron_left</md-icon>
-		</button>-->
-		<div fxFlex>{{ project.number }}: {{project.description}}</div>
-		<button md-button class="mat-icon-button" (click)="edit(project)">
-			<md-icon>edit</md-icon>
-		</button>
-	</md-toolbar>
+		<md-toolbar class="go-toolbar-transparent">
+			<!--		<button md-button class="mat-icon-button" (click)="back()">
+									<md-icon>chevron_left</md-icon>
+					</button>-->
+			<div fxFlex>{{ project.number }}: {{project.description}}</div>
+			<button md-button class="mat-icon-button" (click)="edit(project)">
+				<md-icon>edit</md-icon>
+			</button>
+		</md-toolbar>
 
-	
 
-	<md-card-content style='margin-top: 16px'>
-		<nav md-tab-nav-bar>
-			<a md-tab-link 
-				 [routerLink]="['/projects', project.id]"
-				 routerLinkActive #rla="routerLinkActive"
-				 [active]="rla.isActive"
+
+		<md-card-content style='margin-top: 16px'>
+			<nav md-tab-nav-bar>
+				<a md-tab-link 
+					 [routerLink]="['/projects', project.id, 'info']"
+					 routerLinkActive #infoTabActive="routerLinkActive"
+					 [active]="infoTabActive.isActive"
+					 >
+					 INFO
+			</a>
+
+			<a md-tab-link
+				 [routerLink]="['/projects', project.id, 'proposal']"
+					routerLinkActive #proposalTabActive="routerLinkActive"
+					[active]="proposalTabActive.isActive"
+				 
 				 >
-				 INFO
-		</a>
-		<a md-tab-link>
-			TEAM
-		</a>
-	</nav>
+				PROPOSAL
+			</a>
+
+			<a md-tab-link>
+				TEAM
+			</a>
+		</nav>
 
 
-	<md-list>
-		<md-list-item *ngIf="project.organization">
-			<md-icon md-list-icon>domain</md-icon>
-			<h4 md-line>{{project.organization.name}}</h4>
-			<p md-line> Organization </p>
-		</md-list-item>
-	</md-list>
+		<router-outlet></router-outlet>
 
 
-</md-card-content>
+	</md-card-content>
 
 
 </md-card>
