@@ -32,7 +32,10 @@ export class ProjectComponent implements OnInit {
 		
 		this.route.data.subscribe(data => { 			
 			this.project = data['project']; 
+			console.log(this.router);
 		});
+		
+		
 		
 //		this.route.paramMap
 //    .switchMap((params: ParamMap) => this.projectService.read(+params.get('id'), {returnProperties: '*,organization'}))
@@ -42,6 +45,10 @@ export class ProjectComponent implements OnInit {
 //	back() {
 //		this.location.back();
 //	}
+	
+	isActive(commands: any[]): boolean {
+		return this.router.isActive(this.router.createUrlTree(commands), true);
+	}
 	
 	edit(project: Project) {
 		this.projectEditorService.open(project);

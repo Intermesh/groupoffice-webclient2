@@ -1,4 +1,4 @@
-<div *ngIf="project">
+
 
 
 	<md-card>
@@ -20,17 +20,14 @@
 			<nav md-tab-nav-bar>
 				<a md-tab-link 
 					 [routerLink]="['/projects', project.id, 'info']"
-					 routerLinkActive #infoTabActive="routerLinkActive"
-					 [active]="infoTabActive.isActive"
+					 [active]="this.isActive(['/projects', project.id, 'info'])"
 					 >
-					 INFO
+					 INFO 
 			</a>
 
 			<a md-tab-link
-				 [routerLink]="['/projects', project.id, 'proposal']"
-					routerLinkActive #proposalTabActive="routerLinkActive"
-					[active]="proposalTabActive.isActive"
-				 
+				 [routerLink]="['/projects', project.id, 'proposal']"				 
+				 [active]="this.isActive(['/projects', project.id, 'proposal'])"				 
 				 >
 				PROPOSAL
 			</a>
@@ -48,4 +45,3 @@
 
 
 </md-card>
-</div>
