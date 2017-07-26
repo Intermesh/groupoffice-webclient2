@@ -29,10 +29,13 @@ export class ContactAutocompleteComponent implements ControlValueAccessor, OnIni
 	private innerValue:Contact = null;
 
 	get value() {
+	
 		return this.innerValue;
 	}
 
 	set value(val) {
+
+		
 		this.innerValue = val;
 		this.onChange(val);
 		this.onTouched();
@@ -51,6 +54,7 @@ export class ContactAutocompleteComponent implements ControlValueAccessor, OnIni
 	writeValue(value) {
 		if (value) {
 			this.value = value;
+			this.inputControl.setValue(value);
 		}
 	}
 

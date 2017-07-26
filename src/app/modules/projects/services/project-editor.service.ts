@@ -13,7 +13,7 @@ export class ProjectEditorService {
 		let dialogRef = this.dialog.open(ProjectEditDialog, {data: project, width: "600px"});
 		dialogRef.afterClosed().subscribe(result => {
 			if(result) {				
-				this.router.navigate(['/projects', result.id]);
+				this.router.navigate(['/projects', result.id, 'info']);
 			}
 		});
 	}

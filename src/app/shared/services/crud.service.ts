@@ -90,7 +90,11 @@ export abstract class CrudService<T extends Record & Deletable> {
 		{
 			result = this.apiService.put(this.getUpdatePath(resource), {data: resource});
 		}
-		const obs = result.share().map(data => Object.assign(resource, data.data));				
+		const obs = result.share().map(data => {
+			Object.assign(resource, data.data);
+			console.log(resource);
+			return resource;
+		});				
 		obs.subscribe(data => this.dataChanged.next([data]));				
 		return obs;
 	}

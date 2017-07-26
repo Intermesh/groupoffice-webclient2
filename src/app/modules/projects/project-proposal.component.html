@@ -1,28 +1,48 @@
 
 <div (click)="onClick($event)">
 
-<div *ngFor="let pi of project.proposalItems; let i = index" [class.deleted]="pi.deleted" class="go-projects-proposal-item">
-	
-	<div fxLayout="row">
-		<h2 fxFlex>{{i + 1}}. {{pi.title}}</h2>
-		<div>
-			<button *ngIf="!pi.deleted" md-button class="mat-icon-button" (click)="edit(pi)">
-				<md-icon>edit</md-icon>
-			</button>
-			
-			<button md-button class="mat-icon-button" (click)="toggleDelete(pi)">
-				<md-icon *ngIf="!pi.deleted">delete</md-icon>
-				<md-icon *ngIf="pi.deleted">undo</md-icon>
-			</button>
+	<div *ngFor="let pi of project.proposalItems; let i = index" [class.deleted]="pi.deleted" class="go-projects-proposal-item">
+
+		<div fxLayout="row">
+			<h2 fxFlex>{{i + 1}}. {{pi.title}}</h2>
+			<div>
+				<button *ngIf="!pi.deleted" md-button class="mat-icon-button" (click)="edit(pi)">
+					<md-icon>edit</md-icon>
+				</button>
+
+				<button md-button class="mat-icon-button" (click)="toggleDelete(pi)">
+					<md-icon *ngIf="!pi.deleted">delete</md-icon>
+					<md-icon *ngIf="pi.deleted">undo</md-icon>
+				</button>
+			</div>
 		</div>
+
+		<p [innerHTML]="pi.content"></p>
+
+		<hr />
+
 	</div>
-	
-	<p [innerHTML]="pi.content"></p>
-	
-	<hr />
-	
 </div>
-</div>
+
+<h2>{{project.proposalItems.length + 1}}. Costs</h2>
+
+<table>
+	
+	<tr>
+		<th>Description</th>
+		<th>Price</th>
+	</tr>
+	
+	<tr *ngFor="let pi of project.proposalItems">
+		
+		<td>{{pi.title}}</td>
+		<td>€ {{pi.quantity * pi.unitPrice}}</td>
+		
+	</tr>
+	
+</table>
+
+<button md-button color="primary" type="button" (click)="edit()">ADD</button>
 
 <!--<form [formGroup]="form" novalidate (ngSubmit)="submitForm()">
 

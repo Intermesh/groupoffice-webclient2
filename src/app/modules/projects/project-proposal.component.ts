@@ -30,16 +30,27 @@ export class ProjectProposalComponent  implements OnInit {
 		});
 	}
 		
-	edit(item: ProposalItem):void {
+	edit(item: ProposalItem = null):void {
+		
+		if(!item) {
+			item = new ProposalItem();
+					
+		}
+		
 		let dialogRef = this.dialog.open(ProjectProposalEditDialog, {data: item, width: "600px"});
 		dialogRef.afterClosed().subscribe(result => {
 			
-			this.projectService.save(this.project);
-//			if(result) {				
-//				
-//			}
+			if(result) {
+				if(item.isNew()) {
+					this.project.proposalItems.push(item);
+				}
+				
+				this.projectService.save(this.project);
+			}
+
 		});
 	}
+	
 	
 	toggleDelete(item: ProposalItem) {
 		item.deleted = !item.deleted;

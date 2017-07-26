@@ -22,7 +22,32 @@
 
 			<wysiwyg formControlName="content" placeholder="Test html"> </wysiwyg>
 
+			<div class="go-input-row">
+				<md-icon>euro_symbol</md-icon>
+				
+				<md-input-container>		
 
+					<input mdInput type="number"
+								 placeholder="Quantity"
+								 formControlName="quantity"
+								 />
+					<md-error>{{ formErrors.price }}</md-error>
+				</md-input-container>
+				
+				<span style="padding: 0 20px;">X</span>
+				
+				<md-input-container>		
+
+					<input mdInput type="number"
+								 placeholder="Unit Price"
+								 formControlName="unitPrice"
+								 />
+					<md-error>{{ formErrors.price }}</md-error>
+				</md-input-container>
+				
+				<md-checkbox formControlName="quantityInHours">Hours</md-checkbox>
+			</div>
+			
 		</fieldset>
 
 	</md-dialog-content>

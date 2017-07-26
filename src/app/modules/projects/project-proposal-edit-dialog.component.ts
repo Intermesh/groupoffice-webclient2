@@ -34,7 +34,9 @@ export class ProjectProposalEditDialog extends AbstractForm {
 				])
 			],
 			content: null,
-			price: null
+			unitPrice: null,
+			quantity: null,
+			quantityInHours: null
 			
 			
 		});
