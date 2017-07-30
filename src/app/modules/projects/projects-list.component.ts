@@ -50,6 +50,9 @@ export class ProjectsListComponent implements OnInit, OnDestroy {
 	}
 
 	private onSort(sortEvent) {
+		if(sortEvent[0] != 'list-bag') {
+			return;
+		}
 		const draggedRecord = this.data.value.find(function (p) {
 			return p.id == sortEvent[1].dataset.id;
 		});

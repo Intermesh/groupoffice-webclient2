@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {FormBuilder, FormGroup, FormArray} from '@angular/forms';
 import {ProjectService} from './services/project.service';
@@ -6,20 +6,26 @@ import {Project, ProposalItem} from './models/project.model';
 import {MdDialog} from '@angular/material';
 import {AbstractForm} from '../../shared/form/abstract-form.component';
 import {ProjectProposalEditDialog} from './project-proposal-edit-dialog.component';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {ReplaySubject} from 'rxjs/ReplaySubject';
+import {SelectionModel} from '../../shared/selection-model/selection-model.service';
+import {DragulaService} from 'ng2-dragula';
 
 @Component({
 	templateUrl: './project-proposal.component.html',
 	  styleUrls: ['./project-proposal.component.css']
 })
-export class ProjectProposalComponent  implements OnInit {
+export class ProjectProposalComponent  implements OnInit, OnDestroy {
 
 	private project: Project;
+	private destroyed: ReplaySubject<boolean> = new ReplaySubject(1);
 
 	constructor(
 		private route: ActivatedRoute,
 		protected fb: FormBuilder,
 		private projectService: ProjectService,
 		private dialog: MdDialog,
+		private dragulaService: DragulaService
 	) {
 
 	}
@@ -28,6 +34,31 @@ export class ProjectProposalComponent  implements OnInit {
 		this.route.data.subscribe(data => {
 			this.project = data['project'];		
 		});
+	//Handle drop
+		this.dragulaService.drop.takeUntil(this.destroyed).subscribe(event => this.onSort(event));
+	}
+
+	private onSort(sortEvent) {
+		if(sortEvent[0] != 'pi-bag') {
+			return;
+		}
+		const draggedRecord = this.project.proposalItems.find(function (p) {
+			return p.id == sortEvent[1].dataset.id;
+		});
+
+		if (sortEvent[4]) {
+			const dropRecord = this.project.proposalItems.find(function (p) {
+				return p.id == sortEvent[4].dataset.id;
+			});
+
+			const isMovedUp = draggedRecord.sortOrder > dropRecord.sortOrder;
+
+			draggedRecord.sortOrder = isMovedUp ? dropRecord.sortOrder : dropRecord.sortOrder - 1;
+		} else {
+			//if there's after the dragged record it's at the end of the list				
+			draggedRecord.sortOrder = this.project.proposalItems[this.project.proposalItems.length - 1].sortOrder;
+		}
+		this.projectService.save(this.project);
 	}
 		
 	edit(item: ProposalItem = null):void {
@@ -72,6 +103,10 @@ export class ProjectProposalComponent  implements OnInit {
 		}
 	}
 
+ngOnDestroy(): void {
+		this.destroyed.next(true);
+		this.destroyed.complete();
+	}
 
 
 }

@@ -1,7 +1,7 @@
 
-<div (click)="onClick($event)">
+<div (click)="onClick($event)" [dragula]='"pi-bag"'>
 
-	<div *ngFor="let pi of project.proposalItems; let i = index" [class.deleted]="pi.deleted" class="go-projects-proposal-item">
+	<div *ngFor="let pi of project.proposalItems; let i = index" [class.deleted]="pi.deleted" class="go-projects-proposal-item" [attr.data-id]="pi.id">
 
 		<div fxLayout="row">
 			<h2 fxFlex>{{i + 1}}. {{pi.title}}</h2>

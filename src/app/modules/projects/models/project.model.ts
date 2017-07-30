@@ -6,6 +6,8 @@ export class ProposalItem extends Record implements Deletable{
 		return ["id"];
 	}
 	
+	id: number
+	sortOrder: number
 	title: string
 	content: string
 	unitPrice: number
