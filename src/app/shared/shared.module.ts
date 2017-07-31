@@ -20,6 +20,9 @@ import {HttpClientModule} from '@angular/common/http';
 import {WysiwygComponent} from './form/input/wysiwyg/wysiwyg.component';
 
 import {UserAutocompleteComponent} from'./users/user-autocomplete/user-autocomplete.component';
+import {GroupAutocompleteComponent} from'./groups/group-autocomplete/group-autocomplete.component';
+
+import {ApiUrlPipe} from './pipes/api-url.pipe';
 
 @NgModule({
   imports: [
@@ -43,7 +46,9 @@ import {UserAutocompleteComponent} from'./users/user-autocomplete/user-autocompl
 		FooterComponent,
 		HeaderComponent,
 		WysiwygComponent,
-		UserAutocompleteComponent
+		UserAutocompleteComponent,
+		GroupAutocompleteComponent,
+		ApiUrlPipe
 		
 	],
   exports: [
@@ -62,7 +67,9 @@ import {UserAutocompleteComponent} from'./users/user-autocomplete/user-autocompl
 		FooterComponent,
 		HeaderComponent,
 		WysiwygComponent,
-		UserAutocompleteComponent
+		UserAutocompleteComponent,
+		GroupAutocompleteComponent,
+		ApiUrlPipe
   ],
 	schemas: [
 		CUSTOM_ELEMENTS_SCHEMA

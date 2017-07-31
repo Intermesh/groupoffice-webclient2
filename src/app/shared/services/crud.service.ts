@@ -82,17 +82,16 @@ export abstract class CrudService<T extends Record & Deletable> {
 	/**
 	 * Save a resource
 	 */
-	save (resource: T): Observable<T> {		
+	save (resource: T, returnProperties: string = "*"): Observable<T> {		
 		let result;		
 		if (resource.isNew()) {
-			result = this.apiService.post(this.getCreatePath(resource), {data: resource});		
+			result = this.apiService.post(this.getCreatePath(resource), {data: resource}, {returnProperties: returnProperties});		
 		} else
 		{
-			result = this.apiService.put(this.getUpdatePath(resource), {data: resource});
+			result = this.apiService.put(this.getUpdatePath(resource), {data: resource}, {returnProperties: returnProperties});
 		}
 		const obs = result.share().map(data => {
 			Object.assign(resource, data.data);
-			console.log(resource);
 			return resource;
 		});				
 		obs.subscribe(data => this.dataChanged.next([data]));				

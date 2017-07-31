@@ -21,14 +21,16 @@ import {
 	MdSidenavModule,
 	MdDatepickerModule,
 	MdNativeDateModule,
-	MdSelectModule
+	MdSelectModule,
+	MdTooltipModule
+	
 } from '@angular/material';
 
 import {CdkTableModule} from '@angular/cdk';
 
 let materialModules: any[] = [
 	CdkTableModule,
-	
+	MdTooltipModule,
 	MdToolbarModule,
 	MdCardModule,
 	MdInputModule,

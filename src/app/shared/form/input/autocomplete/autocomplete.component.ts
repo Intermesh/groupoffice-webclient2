@@ -1,11 +1,15 @@
-import { Input, OnInit} from '@angular/core';
+import { Input, OnInit, OnDestroy} from '@angular/core';
 import {ControlValueAccessor, FormControl} from '@angular/forms';
 import {Observable} from 'rxjs/Rx';
+import {ReplaySubject} from 'rxjs/ReplaySubject';
 
 /**
  * See contacts/contact-autocomplete.component.ts for an example
  */
-export abstract class AutocompleteComponent<T> implements ControlValueAccessor, OnInit {
+export abstract class AutocompleteComponent<T> implements ControlValueAccessor, OnInit, OnDestroy {
+	
+	private destroyed: ReplaySubject<boolean> = new ReplaySubject(1);
+	
 	@Input() placeholder = '';
 	
 	onChange: any = () => {};
@@ -14,20 +18,6 @@ export abstract class AutocompleteComponent<T> implements ControlValueAccessor, 
 	inputControl = new FormControl();
 
 	records: Observable<T[]>;
-	private innerValue:T = null;
-
-	get value() {
-	
-		return this.innerValue;
-	}
-
-	set value(val) {
-
-		
-		this.innerValue = val;
-		this.onChange(val);
-		this.onTouched();
-	}
 
 	constructor() {}
 
@@ -40,29 +30,27 @@ export abstract class AutocompleteComponent<T> implements ControlValueAccessor, 
 	}
 
 	writeValue(value) {
-		if (value) {
-			this.value = value;
-			this.inputControl.setValue(value);
-		}
+		this.inputControl.setValue(value);
 	}
 
 	ngOnInit(): void {
 		this.records = this.inputControl.valueChanges
+			.takeUntil(this.destroyed)
 			.debounceTime(300)
-			.distinctUntilChanged()
+			.distinctUntilChanged()			
+			.switchMap(value => value ? this.find(value) : Observable.of<T[]>([]));
 			
-			.switchMap(value => value ? this.find(value) : Observable.of<T[]>([])
 			
-			);
-			
-		this.inputControl.valueChanges.subscribe(value => {
-			
-//			if(value instanceof Contact) { 
-//			Somehow it't not a contact???
-			if (value.id) {
-				this.value = value;
-			}
+		this.inputControl.valueChanges
+			.takeUntil(this.destroyed)
+			.subscribe(value => {
+			this.onChange(value);
 			});
+	}
+	
+	ngOnDestroy(): void {
+		this.destroyed.next(true);
+		this.destroyed.complete();
 	}
 
 	protected abstract find(query: string): Observable<T[]>;

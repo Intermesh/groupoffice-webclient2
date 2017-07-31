@@ -1,19 +1,35 @@
 
-<form novalidate="">
-	<div class="go-input-row">
-		<md-icon>account_box</md-icon>
-		<go-user-autocomplete placeholder="Add user">
-		</go-user-autocomplete>
 
-		<md-select placeholder="Role">
-			<md-option [value]="1">
-				Worker
-			</md-option>
-			<md-option [value]="2">
-				Client
-			</md-option>
-			<md-option [value]="0">
-				Manager
+
+
+
+<md-list>
+  <md-list-item *ngFor="let group of project.groups; let i = index">
+    
+		<img md-list-avatar *ngIf="group.group.user?.photoBlobId" alt="{{group.name}}" src="{{'/thumb/' + group.group.user.photoBlobId | apiUrl : {w:30, h: 30, zoomCrop: 1} }}" />
+	
+			 <div md-list-avatar *ngIf="!group.group.user?.photoBlobId">
+		<md-icon  md-list-icon>group</md-icon>
+		</div>
+    <h4 md-line>{{group.group.name}}</h4>
+    <p md-line> {{roles[group.role]}} </p>
+		
+		<button md-icon-button (click)="delete(i)" mdTooltip="Delete">
+			<md-icon>delete</md-icon>		
+		</button>
+  </md-list-item>
+</md-list>
+
+<hr />
+
+<form novalidate="" [formGroup]="form" (ngSubmit)="submitForm()">
+	<div class="go-input-row" fxLayout="row">
+		<go-group-autocomplete placeholder="Add user" formControlName="group" fxFlex>
+		</go-group-autocomplete>
+
+		<md-select placeholder="Role" formControlName="role">
+			<md-option [value]="i" *ngFor="let role of roles; let i = index">
+				{{role}}
 			</md-option>
 		</md-select>
 

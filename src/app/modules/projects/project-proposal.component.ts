@@ -31,7 +31,7 @@ export class ProjectProposalComponent  implements OnInit, OnDestroy {
 	}
 
 	ngOnInit(): void {
-		this.route.data.subscribe(data => {
+		this.route.parent.data.subscribe(data => {
 			this.project = data['project'];		
 		});
 	//Handle drop

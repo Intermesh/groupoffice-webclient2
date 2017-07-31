@@ -52,10 +52,13 @@ export abstract class AbstractForm {
 		}
 	};
 
+	protected validate(): boolean {
+		return this.form.valid;
+	}
 
 	submitForm() {
 
-		if (this.form.invalid) {
+		if (!this.validate()) {
 			return;
 		}
 

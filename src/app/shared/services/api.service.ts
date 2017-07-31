@@ -32,10 +32,13 @@ export class ApiService {
 		return Observable.throw(error.json());
 	}
 
-	post(path: string, body: Object = {}): Observable<any> {
+	post(path: string, body: Object = {}, queryParams: {[key: string]: string} = {}): Observable<any> {
+		
+		const params = this.paramsToURLSearchParams(queryParams);
+		
 		return this.http.post(`${environment.apiUrl}${path}`, JSON.stringify(body), {
-			headers: this.setHeaders(), 
-			withCredentials: true
+			headers: this.setHeaders(),
+			params
 			})
 			.catch(this.formatErrors);
 			
@@ -58,16 +61,18 @@ export class ApiService {
 		
 		return this.http.get(`${environment.apiUrl}${path}`, {
 				headers: this.setHeaders(), 
-				params, 
-				withCredentials: true
+				params
 			})
 			.catch(this.formatErrors);
 	}
 
-	put(path: string, body: Object = {}): Observable<any> {
+	put(path: string, body: Object = {}, queryParams: {[key: string]: string} = {}): Observable<any> {
+		
+		const params = this.paramsToURLSearchParams(queryParams);
+		
 		return this.http.put(`${environment.apiUrl}${path}`, JSON.stringify(body), {
-				headers: this.setHeaders(), 
-				withCredentials: true
+				headers: this.setHeaders(),
+				params
 			})
 			.catch(this.formatErrors)
 	}
@@ -76,8 +81,7 @@ export class ApiService {
 	delete(path: string, queryParams: {[key: string]: string } = {}): Observable<any> {
 		return this.http.delete(`${environment.apiUrl}${path}`, {
 				headers: this.setHeaders(), 
-				params: this.paramsToURLSearchParams(queryParams), 
-				withCredentials: true
+				params: this.paramsToURLSearchParams(queryParams)
 			})
 			.catch(this.formatErrors);
 	}

@@ -39,25 +39,13 @@ const projectsRouting: ModuleWithProviders = RouterModule.forChild([
 			children: [
 				{
 					path: 'info',
-					component: ProjectInfoComponent,
-					canActivate: [AuthGuard],
-					resolve: {
-						project: ProjectResolve
-					}
+					component: ProjectInfoComponent
 				},{
 					path: 'proposal',
-					component: ProjectProposalComponent,
-					canActivate: [AuthGuard],
-					resolve: {
-						project: ProjectResolve
-					}
+					component: ProjectProposalComponent
 				},{
 					path: 'team',
-					component: ProjectTeamComponent,
-					canActivate: [AuthGuard],
-					resolve: {
-						project: ProjectResolve
-					}
+					component: ProjectTeamComponent
 				}	
 				
 			]

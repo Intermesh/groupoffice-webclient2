@@ -22,17 +22,9 @@ export class ProjectComponent implements OnInit {
 
   ngOnInit() {
 		
-		
-//		
-//		this.route.paramMap.subscribe(data => {
-//			
-//			console.log(this.project);
-//			this.project = null;
-//		})
-		
+	
 		this.route.data.subscribe(data => { 			
 			this.project = data['project']; 
-			console.log(this.router);
 		});
 		
 		

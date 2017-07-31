@@ -22,7 +22,9 @@ export class ProjectInfoComponent implements OnInit{
 	) { }
 	
 	ngOnInit(): void {
-		this.route.data.subscribe(data => { this.project = data['project']; });
+		this.route.parent.data.subscribe(data => { 
+			this.project = data['project']; 
+		});
 	}
 	
   

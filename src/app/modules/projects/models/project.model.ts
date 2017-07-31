@@ -16,6 +16,16 @@ export class ProposalItem extends Record implements Deletable{
 	deleted: boolean = false
 }
 
+export class ProjectGroup extends Record{
+	public pk() {
+		return ["projectId", "groupId"];
+	}
+	markDeleted: boolean
+	projectId: number
+	groupId: number
+	role: number
+}
+
 export class Project extends Record implements Deletable{
 	public pk() {
 		return ["id"];
@@ -27,4 +37,5 @@ export class Project extends Record implements Deletable{
 	deleted: true
 	sortOrder: number
 	proposalItems: ProposalItem[]
+	groups: ProjectGroup[]
 }
