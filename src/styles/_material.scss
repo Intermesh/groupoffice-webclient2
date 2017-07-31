@@ -73,3 +73,16 @@ hr {
 	border-bottom: 1px solid mat-color($foreground, divider);
 	margin: 20px 0;
 }
+
+
+/* fix md-select 
+https://github.com/angular/material2/issues/2127
+*/
+body /deep/ .mat-select-trigger {
+    font-size: inherit;
+}
+
+.mat-select {
+    padding-top: 8px;  //makes the select's baseline align with neighboring text input
+    margin-bottom: 14px //makes the text input below my select align with it's neighbor also
+}

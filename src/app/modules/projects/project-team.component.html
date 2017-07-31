@@ -1,0 +1,24 @@
+
+<form novalidate="">
+	<div class="go-input-row">
+		<md-icon>account_box</md-icon>
+		<go-user-autocomplete placeholder="Add user">
+		</go-user-autocomplete>
+
+		<md-select placeholder="Role">
+			<md-option [value]="1">
+				Worker
+			</md-option>
+			<md-option [value]="2">
+				Client
+			</md-option>
+			<md-option [value]="0">
+				Manager
+			</md-option>
+		</md-select>
+
+		<button md-button color="primary" type="submit" i18n="@@add">
+			ADD
+		</button>
+	</div>
+</form>

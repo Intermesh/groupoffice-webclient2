@@ -32,7 +32,11 @@
 				PROPOSAL
 			</a>
 
-			<a md-tab-link>
+			<a md-tab-link
+				  [routerLink]="['/projects', project.id, 'team']"				 
+				 [active]="this.isActive(['/projects', project.id, 'team'])"	
+				 
+				 >
 				TEAM
 			</a>
 		</nav>

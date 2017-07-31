@@ -21,6 +21,7 @@ import {ProjectProposalEditDialog} from './project-proposal-edit-dialog.componen
 import {ContactsModule} from '../contacts/contacts.module';
 import {ProjectComponent} from './project.component';
 import {DragulaModule} from 'ng2-dragula';
+import { ProjectTeamComponent } from './project-team.component';
 //import {DndModule} from 'ng2-dnd';
 
 const projectsRouting: ModuleWithProviders = RouterModule.forChild([
@@ -50,6 +51,13 @@ const projectsRouting: ModuleWithProviders = RouterModule.forChild([
 					resolve: {
 						project: ProjectResolve
 					}
+				},{
+					path: 'team',
+					component: ProjectTeamComponent,
+					canActivate: [AuthGuard],
+					resolve: {
+						project: ProjectResolve
+					}
 				}	
 				
 			]
@@ -75,7 +83,8 @@ const projectsRouting: ModuleWithProviders = RouterModule.forChild([
 		ProjectComponent,
 		ProjectInfoComponent,
 		ProjectProposalComponent,
-		ProjectProposalEditDialog
+		ProjectProposalEditDialog,
+		ProjectTeamComponent
 	],
 	providers: [
 		ProjectService,

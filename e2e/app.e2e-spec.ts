@@ -7,8 +7,5 @@ describe('groupoffice-webclient2 App', () => {
     page = new GroupofficeWebclient2Page();
   });
 
-  it('should display welcome message', () => {
-    page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to app!!');
-  });
+ 
 });

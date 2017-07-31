@@ -19,6 +19,8 @@ import {HttpClientModule} from '@angular/common/http';
 
 import {WysiwygComponent} from './form/input/wysiwyg/wysiwyg.component';
 
+import {UserAutocompleteComponent} from'./users/user-autocomplete/user-autocomplete.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -29,7 +31,8 @@ import {WysiwygComponent} from './form/input/wysiwyg/wysiwyg.component';
 		MaterialModule,
 		FlexLayoutModule,
 		InfiniteScrollModule,
-		HttpClientModule
+		HttpClientModule,
+		
 			
   ],
   declarations: [
@@ -39,7 +42,9 @@ import {WysiwygComponent} from './form/input/wysiwyg/wysiwyg.component';
 		SelectionModelDirective,
 		FooterComponent,
 		HeaderComponent,
-		WysiwygComponent
+		WysiwygComponent,
+		UserAutocompleteComponent
+		
 	],
   exports: [
     CommonModule,
@@ -56,7 +61,8 @@ import {WysiwygComponent} from './form/input/wysiwyg/wysiwyg.component';
 		SelectionModelDirective,
 		FooterComponent,
 		HeaderComponent,
-		WysiwygComponent
+		WysiwygComponent,
+		UserAutocompleteComponent
   ],
 	schemas: [
 		CUSTOM_ELEMENTS_SCHEMA

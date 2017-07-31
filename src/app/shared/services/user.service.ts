@@ -9,10 +9,13 @@ import 'rxjs/add/operator/catch';
 import { ApiService } from './api.service';
 import { AccessTokenService } from './access-token.service';
 import {User} from '../models/user.model';
-
+import {CrudService} from './crud.service';
 
 @Injectable()
-export class UserService {
+export class UserService extends CrudService<User> {
+	protected getStorePath(): string {
+		return "/auth/users";
+	}
   private currentUserSubject = new BehaviorSubject<User>(new User());
   public currentUser = this.currentUserSubject.asObservable().distinctUntilChanged();
 
@@ -20,10 +23,11 @@ export class UserService {
   public isAuthenticated = this.isAuthenticatedSubject.asObservable();
 
   constructor (
-    private apiService: ApiService,
-    private http: Http,
-		private accessTokenService: AccessTokenService
-  ) {}
+    apiService: ApiService,
+    private accessTokenService: AccessTokenService
+  ) {
+		super(apiService, User);	
+	}
 	
 	// Verify JWT in localstorage with server & load user's info.
   // This runs once on application startup.
@@ -83,16 +87,4 @@ export class UserService {
   getCurrentUser(): User {
     return this.currentUserSubject.value;
   }
-	
-	// Update the user on the server (email, pass, etc)
-  update(user): Observable<User> {
-    return this.apiService.put('/user', { user })
-    .map(data => {
-			
-      // Update the currentUser observable
-      this.currentUserSubject.next(data.data);
-      return data.user;
-    });
-	}
-
 }
