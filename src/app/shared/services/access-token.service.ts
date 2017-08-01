@@ -9,6 +9,9 @@ export class AccessTokenService {
   }
 
   saveToken(token: String) {
+		
+		document.cookie = "accessToken=" + token + ';path=/';
+		
     window.localStorage['AccessToken'] = token;
   }
 
