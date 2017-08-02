@@ -22,6 +22,7 @@ import {ContactsModule} from '../contacts/contacts.module';
 import {ProjectComponent} from './project.component';
 import {DragulaModule} from 'ng2-dragula';
 import { ProjectTeamComponent } from './project-team.component';
+import { ProjectIssuesComponent } from './project-issues.component';
 //import {DndModule} from 'ng2-dnd';
 
 const projectsRouting: ModuleWithProviders = RouterModule.forChild([
@@ -46,7 +47,10 @@ const projectsRouting: ModuleWithProviders = RouterModule.forChild([
 				},{
 					path: 'team',
 					component: ProjectTeamComponent
-				}	
+				},{
+					path: 'issues',
+					component: ProjectIssuesComponent
+				}		
 				
 			]
 		},
@@ -72,7 +76,8 @@ const projectsRouting: ModuleWithProviders = RouterModule.forChild([
 		ProjectInfoComponent,
 		ProjectProposalComponent,
 		ProjectProposalEditDialog,
-		ProjectTeamComponent
+		ProjectTeamComponent,
+		ProjectIssuesComponent
 	],
 	providers: [
 		ProjectService,

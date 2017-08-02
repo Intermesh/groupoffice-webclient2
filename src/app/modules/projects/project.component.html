@@ -39,6 +39,14 @@
 				 >
 				TEAM
 			</a>
+				
+			<a md-tab-link
+				  [routerLink]="['/projects', project.id, 'issues']"				 
+				 [active]="this.isActive(['/projects', project.id, 'issues'])"	
+				 
+				 >
+				ISSUES
+			</a>
 		</nav>
 
 
