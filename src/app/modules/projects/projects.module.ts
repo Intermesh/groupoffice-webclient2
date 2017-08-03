@@ -25,6 +25,8 @@ import { ProjectTeamComponent } from './project-team.component';
 import { ProjectIssuesComponent } from './project-issues.component';
 import { IssueEditDialogComponent } from './issue-edit-dialog.component';
 import {IssueEditorService} from './services/issue-editor.service';
+import { IssueComponent } from './issue.component';
+import {IssueResolve} from './issue.resolve';
 //import {DndModule} from 'ng2-dnd';
 
 const projectsRouting: ModuleWithProviders = RouterModule.forChild([
@@ -52,6 +54,12 @@ const projectsRouting: ModuleWithProviders = RouterModule.forChild([
 				},{
 					path: 'issues',
 					component: ProjectIssuesComponent
+				},{
+					path: 'issues/:id',
+					component: IssueComponent,
+					resolve: {
+						issue: IssueResolve
+					}
 				}		
 				
 			]
@@ -80,13 +88,15 @@ const projectsRouting: ModuleWithProviders = RouterModule.forChild([
 		ProjectProposalEditDialog,
 		ProjectTeamComponent,
 		ProjectIssuesComponent,
-		IssueEditDialogComponent
+		IssueEditDialogComponent,
+		IssueComponent
 	],
 	providers: [
 		ProjectService,
 		ProjectEditorService,
 		IssueEditorService,
-		ProjectResolve
+		ProjectResolve,
+		IssueResolve
 	],
 	entryComponents: [
 		ProjectEditDialog,

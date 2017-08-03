@@ -15,7 +15,7 @@
 	<md-nav-list>
 
 		<!-- Added the ID for dragula [attr.data-id]="yourModel.id" see https://github.com/valor-software/ng2-dragula/issues/173 -->
-		<md-list-item *ngFor="let issue of (issues | async);">
+		<md-list-item *ngFor="let issue of (issues | async);"  [routerLink]="['/projects', project.id, 'issues', issue.id]">
 			<img md-list-avatar alt="{{issue.creator.name}}" src="{{'/thumb/' + issue.creator.photoBlobId | apiUrl : {w:30, h: 30, zoomCrop: 1} }}" />
 	
 			<h3 md-line>{{ issue.title }}</h3>
