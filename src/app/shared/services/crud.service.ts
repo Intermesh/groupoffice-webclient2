@@ -4,7 +4,7 @@ import {ApiService} from './api.service';
 import {Deletable} from '../models/deletable.interface';
 import {Record} from '../models/record.model';
 
-export abstract class CrudService<T extends Record & Deletable> {
+export abstract class CrudService<T extends Record> {
 	constructor(
 		protected apiService: ApiService,
 		private modelClass: { new(...args: any[]): T }

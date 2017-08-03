@@ -1,3 +1,27 @@
-<p>
-  project-issues works!
-</p>
+<div fxLayout="row" fxLayoutAlign="end center">
+	<button md-button (click)="create()" color="primary">
+		NEW ISSUE
+	</button>
+</div>	
+
+<div class="go-list-container"
+		 infiniteScroll
+		 [infiniteScrollDistance]="2"
+		 [infiniteScrollThrottle]="500"
+		 (scrolled)="onScroll()"
+		 [scrollWindow]="false"
+		 >
+
+	<md-nav-list>
+
+		<!-- Added the ID for dragula [attr.data-id]="yourModel.id" see https://github.com/valor-software/ng2-dragula/issues/173 -->
+		<md-list-item *ngFor="let issue of (issues | async);">
+			<img md-list-avatar alt="{{issue.creator.name}}" src="{{'/thumb/' + issue.creator.photoBlobId | apiUrl : {w:30, h: 30, zoomCrop: 1} }}" />
+	
+			<h3 md-line>{{ issue.title }}</h3>
+			<p md-line>#{{issue.id}} created at {{issue.createdAt | date}} by {{issue.creator.username}}</p>			 
+		</md-list-item>
+	</md-nav-list>
+		 
+
+</div>

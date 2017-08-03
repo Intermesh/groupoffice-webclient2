@@ -47,10 +47,12 @@ export class ApiService {
 	private paramsToURLSearchParams(params: {[key: string]: string} = {}): HttpParams {
 			let urlParams: HttpParams = new HttpParams();
 
-			Object.keys(params)
-			.forEach((key) => {
-				urlParams = urlParams.set(key, params[key]);
-			}); 
+			if(params != null) {
+				Object.keys(params)
+				.forEach((key) => {
+					urlParams = urlParams.set(key, params[key]);
+				}); 
+			}
 			
 			return urlParams;
 	}

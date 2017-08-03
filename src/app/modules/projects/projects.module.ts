@@ -23,6 +23,8 @@ import {ProjectComponent} from './project.component';
 import {DragulaModule} from 'ng2-dragula';
 import { ProjectTeamComponent } from './project-team.component';
 import { ProjectIssuesComponent } from './project-issues.component';
+import { IssueEditDialogComponent } from './issue-edit-dialog.component';
+import {IssueEditorService} from './services/issue-editor.service';
 //import {DndModule} from 'ng2-dnd';
 
 const projectsRouting: ModuleWithProviders = RouterModule.forChild([
@@ -77,16 +79,19 @@ const projectsRouting: ModuleWithProviders = RouterModule.forChild([
 		ProjectProposalComponent,
 		ProjectProposalEditDialog,
 		ProjectTeamComponent,
-		ProjectIssuesComponent
+		ProjectIssuesComponent,
+		IssueEditDialogComponent
 	],
 	providers: [
 		ProjectService,
 		ProjectEditorService,
+		IssueEditorService,
 		ProjectResolve
 	],
 	entryComponents: [
 		ProjectEditDialog,
-		ProjectProposalEditDialog
+		ProjectProposalEditDialog,
+		IssueEditDialogComponent
 	],
 })
 export class ProjectsModule {}

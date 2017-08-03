@@ -6,18 +6,20 @@ import {MD_DIALOG_DATA} from '@angular/material';
 import {AbstractForm} from '../../shared/form/abstract-form.component';
 import {Observable} from 'rxjs/Observable';
 
-import {ProposalItem} from './models/project.model';
+import {Issue} from './models/issue.model';
 
 @Component({
-	templateUrl: './project-proposal-edit-dialog.component.html'	
+	selector: 'app-issue-edit-dialog',
+  templateUrl: './issue-edit-dialog.component.html',
+  styleUrls: ['./issue-edit-dialog.component.css']
 })
-export class ProjectProposalEditDialog extends AbstractForm {
+export class IssueEditDialogComponent extends AbstractForm {
 	
 	constructor(		
-		@Inject(MD_DIALOG_DATA) public data: ProposalItem = null,
+		@Inject(MD_DIALOG_DATA) public data: Issue = null,
 		protected fb: FormBuilder,
 		private projectService: ProjectService,
-		private dialogRef: MdDialogRef<ProjectProposalEditDialog>
+		private dialogRef: MdDialogRef<IssueEditDialogComponent>
 	) {	
 		super(fb);	
 		
@@ -32,25 +34,14 @@ export class ProjectProposalEditDialog extends AbstractForm {
 			title: ['', Validators.compose([
 				Validators.required
 				])
-			],
-			content: null,
-			unitPrice: null,
-			quantity: null,
-			quantityInHours: null
-			
-			
+			]			
 		});
 	}
 
 
-	internalSubmit() {
-		
-		if(!this.data) {
-			this.data = new ProposalItem();
-		}
-		
+	internalSubmit() {		
 		Object.assign(this.data, this.form.value);
-		return Observable.of(this.data);				
+		return this.projectService.getIssuesService(this.data.project).save(this.data);				
 	}
 	
 	onSuccess(data) {
