@@ -18,7 +18,7 @@ export class ProjectComponent implements OnInit {
   private router: Router,
 	private projectEditorService: ProjectEditorService
 	) { }
-	private project: Project;
+	project: Project;
 
   ngOnInit() {
 		

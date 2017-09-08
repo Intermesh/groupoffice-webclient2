@@ -8,7 +8,7 @@ import {Project} from './models/project.model';
 })
 export class ProjectInfoComponent implements OnInit{
 	
-	private project: Project;
+	public project: Project;
 
 
   constructor(

@@ -55,7 +55,7 @@ export abstract class AutocompleteComponent<T> implements ControlValueAccessor, 
 
 	protected abstract find(query: string): Observable<T[]>;
 
-	protected abstract displayFn(record: T): string;
+	public abstract displayFn(record: T): string;
 
 }
 

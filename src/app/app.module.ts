@@ -18,8 +18,6 @@ import {AccessTokenService} from './shared/services/access-token.service'
 import {SharedModule} from './shared/shared.module';
 
 
-import {DndModule} from 'ng2-dnd';
-
 /** modules **/
 
 import {ProjectsModule} from './modules/projects/projects.module';
@@ -41,9 +39,6 @@ import {ProjectsModule} from './modules/projects/projects.module';
 		AuthModule,
 		
 		SharedModule,
-
-		
-		DndModule.forRoot(),
 		
 		//Modules
 		ProjectsModule

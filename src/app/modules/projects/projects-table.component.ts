@@ -8,7 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import {ProjectEditDialog} from './project-edit-dialog.component';
 
-import {DataSource} from '@angular/cdk';
+import {DataSource} from '@angular/cdk/collections';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/startWith';

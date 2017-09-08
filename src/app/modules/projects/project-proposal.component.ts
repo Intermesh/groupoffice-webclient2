@@ -17,7 +17,7 @@ import {DragulaService} from 'ng2-dragula';
 })
 export class ProjectProposalComponent  implements OnInit, OnDestroy {
 
-	private project: Project;
+	project: Project;
 	private destroyed: ReplaySubject<boolean> = new ReplaySubject(1);
 
 	constructor(

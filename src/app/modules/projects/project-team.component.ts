@@ -13,9 +13,9 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class ProjectTeamComponent extends AbstractForm implements OnInit {
 	
-	private project: Project;
+	project: Project;
 	
-	private roles: string[] = [];
+	roles: string[] = [];
 	
 	protected buildForm() {
 		return this.fb.group({

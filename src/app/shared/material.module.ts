@@ -26,7 +26,7 @@ import {
 	
 } from '@angular/material';
 
-import {CdkTableModule} from '@angular/cdk';
+import {CdkTableModule} from '@angular/cdk/table';
 
 let materialModules: any[] = [
 	CdkTableModule,

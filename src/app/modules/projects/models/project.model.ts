@@ -38,4 +38,5 @@ export class Project extends Record implements Deletable{
 	sortOrder: number
 	proposalItems: ProposalItem[]
 	groups: ProjectGroup[]
+	organization: any
 }

@@ -26,7 +26,7 @@ export class ContactAutocompleteComponent extends AutocompleteComponent<Contact>
 		return this.apiService.get('/contacts', {searchQuery: query}).map(data => data.data as Contact[]);
 	}
 
-	protected displayFn(contact: Contact): string {
+	public displayFn(contact: Contact): string {
 		return contact ? contact.name : "";
 	}
 

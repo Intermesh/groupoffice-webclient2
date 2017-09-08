@@ -25,7 +25,7 @@ export class GroupAutocompleteComponent extends AutocompleteComponent<Group> {
 		return this.apiService.get("/auth/groups", {searchQuery: query}).map(data => data.data);
 	}
 
-	protected displayFn(user: Group): string {
+	public displayFn(user: Group): string {
 		return user ? user.name : "";
 	}
 

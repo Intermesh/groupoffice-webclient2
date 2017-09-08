@@ -25,7 +25,7 @@ export class UserAutocompleteComponent extends AutocompleteComponent<User> {
 		return this.userService.find({searchQuery: query}).map(data => data.data);
 	}
 
-	protected displayFn(user: User): string {
+	public displayFn(user: User): string {
 		return user ? user.username : "";
 	}
 
