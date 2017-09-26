@@ -32,7 +32,7 @@ import {trigger, state, animate, style, transition} from '@angular/core';
   templateUrl: './issue.component.html',
   styleUrls: ['./issue.component.css'],
 	// animations: [routerTransition()],
-  host: {'[@routerTransition]': ''}
+//  host: {'[@routerTransition]': ''}
 })
 export class IssueComponent implements OnInit {
 	
